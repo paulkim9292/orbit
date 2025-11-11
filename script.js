@@ -152,35 +152,30 @@ function updateExpandLine() {
   expandLine.style.width = progress * 320 + 'px';
 }
 
-// Update page2 content parallax based on scroll progress
-function updatePage2Parallax() {
-  if (!page2Content || !page2) {
-    console.log('Missing elements:', { page2Content, page2 });
-    return;
-  }
-
+// Update parallax for all pages (2-10) based on scroll progress
+function updateAllPagesParallax() {
   const windowHeight = window.innerHeight;
-  const page2Rect = page2.getBoundingClientRect();
 
-  // Calculate how much of page2 is visible
-  const pageTop = page2Rect.top;
-  const pageHeight = page2Rect.height;
+  // Loop through pages 2-10
+  for (let i = 2; i <= 10; i++) {
+    const page = document.getElementById(`page${i}`);
+    if (!page) continue;
 
-  // Calculate scroll progress (0 to 1)
-  let progress = 0;
-  if (pageTop < windowHeight && pageTop > -pageHeight) {
-    // Page is partially or fully visible (2x faster animation)
-    progress = Math.min(Math.max((windowHeight - pageTop) / (windowHeight * 0.7), 0), 1);
+    const pageRect = page.getBoundingClientRect();
+    const pageTop = pageRect.top;
+
+    // Calculate scroll progress (0 to 1) - always calculate and clamp
+    // This keeps the final position when scrolled past the page
+    let rawProgress = (windowHeight - pageTop) / (windowHeight * 0.7);
+    let progress = Math.min(Math.max(rawProgress, 0), 1);
+
+    // Set translateY based on progress
+    // progress = 0: content is 180px below
+    // progress = 1: content is at normal position (0px)
+    const translateY = (1 - progress) * 180;
+
+    page.style.transform = `translateY(${translateY}px)`;
   }
-
-  // Set translateY based on progress
-  // progress = 0: content is 180px below
-  // progress = 1: content is at normal position (0px)
-  const translateY = (1 - progress) * 180;
-
-  console.log('Parallax:', { pageTop, windowHeight, progress, translateY });
-
-  page2Content.style.transform = `translateY(${translateY}px)`;
 }
 
 // Update circle positions based on scroll progress
@@ -234,8 +229,8 @@ function updateCircles() {
   // Update expand-line animation
   updateExpandLine();
 
-  // Update page2 parallax animation
-  updatePage2Parallax();
+  // Update parallax animation for all pages
+  updateAllPagesParallax();
 
   // Request next frame
   requestAnimationFrame(updateCircles);
