@@ -18,6 +18,10 @@
   box-sizing: border-box;
 }
 
+b {
+    font-weight: 700;
+}
+
 /* html {
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
@@ -26,9 +30,13 @@
 body {
   font-family: 'Afacad', sans-serif;
   background-color: var(--navy);
-  color: white;
   min-height: 100vh;
   overflow-x: hidden;
+  color: var(--blue);
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: normal;
 }
 
 /* Header styles */
@@ -47,13 +55,12 @@ header {
 
 /* About Us button */
 .about-btn {
-    color: #AEB1E7;
-    text-align: center;
-    font-family: Afacad;
-    font-size: 1.875rem;
-    font-style: italic;
-    font-weight: 400;
-    line-height: normal;
+    color: inherit;
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    font-size: 1.4rem;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -71,6 +78,10 @@ main {
   height: 100vh;
   scroll-snap-align: start;
   position: relative;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Circles container - fixed positioning behind content */
@@ -142,17 +153,75 @@ main {
   height: 1515px;
 }
 
-/* Page 1 video styling */
-#page1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
-
 #page1 img {
   opacity: 1;
   max-width: 100%;
   max-height: calc(100vh - 5rem);
   z-index: 100;
 } 
+
+#page2 {
+  flex-direction: column;
+}
+
+.page2-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 80%;
+  will-change: transform;
+}
+
+.page2-1, .page2-2, .page2-3 {
+    position: relative;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page2-2 {
+    margin-bottom: 5rem;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(10px);
+  }
+  80% {
+    transform: translateY(10px);
+  }
+}
+
+.scroll-arrow {
+    width: 120px;
+    /* height: 95px; */
+    flex-shrink: 0;
+    animation: bounce 4s ease-in-out infinite;
+}
+
+.orbit-text {
+    width: 580px;
+    height: 333px;
+    flex-shrink: 0;
+}
+
+.orbit-text-overlay {
+    position: absolute;
+    top: 280px;
+    /* left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0; */
+    text-align: center;
+}
+
+.expand-line {
+    width: 0;
+    height: 1px;
+    background-color: var(--blue);
+    margin: 1rem auto 2rem;
+}

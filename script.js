@@ -115,6 +115,11 @@ const circles = {
   navy1: document.getElementById('navy1'),
 };
 
+// Get expand-line elements
+const expandLine = document.querySelector('.expand-line');
+const page2 = document.getElementById('page2');
+const page2Content = document.querySelector('.page2-content');
+
 // Linear interpolation function
 function lerp(start, end, progress) {
   return start + (end - start) * progress;
@@ -123,6 +128,59 @@ function lerp(start, end, progress) {
 // Easing function for smoother animation
 function easeInOutCubic(x) {
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+}
+
+// Update expand-line based on scroll progress
+function updateExpandLine() {
+  if (!expandLine || !page2) return;
+
+  const windowHeight = window.innerHeight;
+  const page2Rect = page2.getBoundingClientRect();
+
+  // Calculate how much of page2 is visible
+  const pageTop = page2Rect.top;
+  const pageHeight = page2Rect.height;
+
+  // Calculate scroll progress (0 to 1)
+  let progress = 0;
+  if (pageTop < windowHeight && pageTop > -pageHeight) {
+    // Page is partially or fully visible
+    progress = Math.min(Math.max((windowHeight - pageTop) / windowHeight, 0), 1);
+  }
+
+  // Set line width based on progress (0% to 80%)
+  expandLine.style.width = progress * 320 + 'px';
+}
+
+// Update page2 content parallax based on scroll progress
+function updatePage2Parallax() {
+  if (!page2Content || !page2) {
+    console.log('Missing elements:', { page2Content, page2 });
+    return;
+  }
+
+  const windowHeight = window.innerHeight;
+  const page2Rect = page2.getBoundingClientRect();
+
+  // Calculate how much of page2 is visible
+  const pageTop = page2Rect.top;
+  const pageHeight = page2Rect.height;
+
+  // Calculate scroll progress (0 to 1)
+  let progress = 0;
+  if (pageTop < windowHeight && pageTop > -pageHeight) {
+    // Page is partially or fully visible (2x faster animation)
+    progress = Math.min(Math.max((windowHeight - pageTop) / (windowHeight * 0.7), 0), 1);
+  }
+
+  // Set translateY based on progress
+  // progress = 0: content is 180px below
+  // progress = 1: content is at normal position (0px)
+  const translateY = (1 - progress) * 180;
+
+  console.log('Parallax:', { pageTop, windowHeight, progress, translateY });
+
+  page2Content.style.transform = `translateY(${translateY}px)`;
 }
 
 // Update circle positions based on scroll progress
@@ -172,6 +230,12 @@ function updateCircles() {
     // Apply transform (more performant than changing left/top)
     circle.style.transform = `translate(${translateX}px, ${translateY}px)`;
   });
+
+  // Update expand-line animation
+  updateExpandLine();
+
+  // Update page2 parallax animation
+  updatePage2Parallax();
 
   // Request next frame
   requestAnimationFrame(updateCircles);
