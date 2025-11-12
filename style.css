@@ -342,3 +342,485 @@ main {
     height: 90%;
     align-items: center;
 }
+
+#page6 {
+    justify-content: space-around;
+}
+
+#page6 > b {
+    font-size: 2.5rem;
+    margin-top: 5rem;
+}
+
+/* Page 6 container - horizontal layout with gap */
+#page6 > div {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+}
+
+/* Page 6 icon cards - vertical layout, centered */
+#page6 > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    justify-content: end;
+    flex: 1;
+    font-size: 1.8rem;
+}
+
+#page6 img {
+    height: 32vh;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 2rem;
+}
+
+/* Page 6 buttons styling */
+#page6 button {
+    color: var(--navy);
+    font-size: 1.3rem;
+    padding: 0.3rem 1.2rem;
+    background-color: var(--blue);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-style: italic;
+    border-radius: 0.5rem;
+}
+
+/* Page 6 button hover effect */
+#page6 button:hover {
+    background-color: var(--red);
+}
+
+/* Page 7 Carousel Styling */
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 80vh;
+    position: relative;
+}
+
+.carousel-wrapper {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.carousel-wrapper::before,
+.carousel-wrapper::after {
+    content: '';
+    min-width: calc((100% - 80%) / 2);
+    flex-shrink: 0;
+}
+
+.carousel-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+}
+
+.carousel-box {
+    min-width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(217, 217, 217, 0.2);
+    border-radius: 30px;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+}
+
+/* Carousel Dots Navigation */
+.carousel-dots {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    bottom: 2rem;
+}
+
+.dot {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--blue);
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: var(--red);
+}
+
+/* Box 1 Content Styling */
+.box1-content {
+    width: 100%;
+    height: 100%;
+    padding: 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+
+.box1-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    margin: 0;
+}
+
+/* Pie Chart Section */
+.box1-pie-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    left: 4rem;
+    top: 8rem;
+}
+
+.box1-pie-chart {
+    width: 200px;
+    height: 200px;
+}
+
+.box1-pie-percent {
+    font-size: 2.2rem;
+    font-style: italic;
+    fill: var(--blue);
+}
+
+.box1-pie-label {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    width: 236px;
+    margin: 0;
+}
+
+/* Bar Chart Section */
+.box1-bar-section {
+    position: absolute;
+    right: 4rem;
+    top: 8rem;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-top: 2rem;
+}
+
+.box1-bar-row {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.box1-year {
+    min-width: 60px;
+}
+
+.box1-bar {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 1rem;
+    color: var(--navy);
+    font-style: italic;
+    position: relative;
+}
+
+.box1-bar-blue {
+    background-color: var(--blue);
+}
+
+.box1-bar-purple {
+    background-color: var(--purple);
+}
+
+.box1-arrow {
+    width: 70px;
+    height: 45px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 25px;
+}
+
+.box1-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.box1-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+}
+
+.box1-legend-color {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.box1-legend-blue {
+    background-color: var(--blue);
+}
+
+.box1-legend-purple {
+    background-color: var(--purple);
+}
+
+/* Caption Box */
+.box-caption {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 8rem);
+    border: 1px solid var(--blue);
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.box-caption p {
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    margin: 0;
+}
+
+/* Box 1 Animation - Initial Hidden States */
+.box1-bar {
+    width: 0;
+    color: transparent;
+}
+
+.box1-pie-percent,
+.box1-pie-label,
+.box1-arrow,
+.box1-legend,
+.box1-caption {
+    opacity: 0;
+}
+
+@keyframes growWidth {
+    from {
+        width: 0;
+    }
+    to {
+        width: var(--final-width);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes textFadeIn {
+    from {
+        color: transparent;
+    }
+    to {
+        color: var(--navy);
+    }
+}
+
+/* Box 1 Animation Triggers */
+.carousel-box.animated .box1-bar {
+    animation:
+        growWidth 1s ease-out forwards,
+        textFadeIn 0.5s 1s ease-out forwards;
+}
+
+.carousel-box.animated .box1-pie-percent,
+.carousel-box.animated .box1-pie-label,
+.carousel-box.animated .box1-arrow,
+.carousel-box.animated .box1-legend,
+.carousel-box.animated .box1-caption {
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 1s;
+}
+
+/* Box 2 Content Styling */
+.box2-content {
+    width: 100%;
+    height: 100%;
+    padding: 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+
+.box2-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    margin: 0;
+}
+
+/* Pie Chart Sections - Horizontal Layout */
+.box2-pie-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    top: 9rem;
+}
+
+.box2-pie-left {
+    left: 14rem;
+}
+
+.box2-pie-right {
+    right: 14rem;
+}
+
+/* Pie Chart SVG */
+.box2-pie-chart {
+    width: 200px;
+    height: 200px;
+}
+
+.box2-pie-percent {
+    font-size: 2.2rem;
+    font-style: italic;
+    fill: var(--blue);
+}
+
+.box2-pie-label {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    width: 236px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Box 2 Animation - Initial Hidden States */
+.box2-pie-percent,
+.box2-pie-label,
+.box2-caption {
+    opacity: 0;
+}
+
+/* Box 2 Animation Triggers */
+.carousel-box.animated .box2-pie-percent,
+.carousel-box.animated .box2-pie-label,
+.carousel-box.animated .box2-caption {
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 1s;
+}
+
+/* Box 3 Content Styling */
+.box3-content {
+    width: 100%;
+    height: 100%;
+    padding: 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+
+.box3-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    margin: 0;
+}
+
+/* Pie Chart Sections - Horizontal Layout */
+.box3-pie-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    top: 9rem;
+}
+
+.box3-pie-left {
+    left: 14rem;
+}
+
+.box3-pie-right {
+    right: 14rem;
+}
+
+/* Pie Chart SVG */
+.box3-pie-chart {
+    width: 200px;
+    height: 200px;
+}
+
+.box3-pie-percent {
+    font-size: 2.2rem;
+    font-style: italic;
+    fill: var(--blue);
+}
+
+.box3-pie-label {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    width: 236px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Box 3 Animation - Initial Hidden States */
+.box3-pie-percent,
+.box3-pie-label,
+.carousel-box:nth-child(3) .box-caption {
+    opacity: 0;
+}
+
+/* Box 3 Animation Triggers */
+.carousel-box:nth-child(3).animated .box3-pie-percent,
+.carousel-box:nth-child(3).animated .box3-pie-label,
+.carousel-box:nth-child(3).animated .box-caption {
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 1s;
+}

@@ -295,3 +295,268 @@ requestAnimationFrame(updateCircles);
 window.addEventListener('scroll', () => {
   // Can add additional scroll-based effects here if needed
 });
+
+// Carousel functionality for Page 7
+const carouselWrapper = document.querySelector('.carousel-wrapper');
+const carouselBoxes = document.querySelectorAll('.carousel-box');
+const dots = document.querySelectorAll('.dot');
+let currentSlide = 0;
+let box1Animated = false;
+
+function animateBox1Pie() {
+  const piePath = document.getElementById('box1-pie-path');
+  if (!piePath) return;
+
+  let angle = 0;
+  const targetAngle = 306; // 85% of 360
+  const duration = 1000; // ms
+  const startTime = Date.now();
+  const π = Math.PI;
+
+  function draw() {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    angle = progress * targetAngle;
+
+    const r = (angle * π) / 180;
+    const x = Math.sin(r) * 100;
+    const y = Math.cos(r) * -100;
+    const mid = angle > 180 ? 1 : 0;
+    const path = `M 0 0 v -100 A 100 100 1 ${mid} 1 ${x} ${y} z`;
+
+    piePath.setAttribute('d', path);
+
+    if (progress < 1) {
+      requestAnimationFrame(draw);
+    }
+  }
+
+  draw();
+}
+
+function triggerBox1Animation() {
+  if (!box1Animated && currentSlide === 0) {
+    carouselBoxes[0].classList.add('animated');
+    animateBox1Pie();
+    box1Animated = true;
+  }
+}
+
+function updateActiveSlide() {
+  // Calculate which box is currently in the center
+  const scrollLeft = carouselWrapper.scrollLeft;
+  const boxWidth = carouselBoxes[0].offsetWidth;
+  const gap = 32; // 2rem = 32px
+
+  // Calculate the index of the centered box
+  const newSlide = Math.round(scrollLeft / (boxWidth + gap));
+
+  if (newSlide !== currentSlide && newSlide >= 0 && newSlide < carouselBoxes.length) {
+    // Remove active class from previous elements
+    carouselBoxes[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+
+    // Update current slide
+    currentSlide = newSlide;
+
+    // Add active class to new elements
+    carouselBoxes[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+
+    // Trigger animations based on current slide
+    if (currentSlide === 0) {
+      triggerBox1Animation();
+    } else if (currentSlide === 1) {
+      triggerBox2Animation();
+    } else if (currentSlide === 2) {
+      triggerBox3Animation();
+    }
+  }
+}
+
+function goToSlide(slideIndex) {
+  currentSlide = slideIndex;
+
+  // Scroll to the selected box
+  carouselBoxes[slideIndex].scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest',
+    inline: 'center',
+  });
+
+  // Trigger animations based on slide index
+  setTimeout(() => {
+    if (slideIndex === 0) {
+      triggerBox1Animation();
+    } else if (slideIndex === 1) {
+      triggerBox2Animation();
+    } else if (slideIndex === 2) {
+      triggerBox3Animation();
+    }
+  }, 100);
+}
+
+// Add scroll event listener to update active state
+carouselWrapper.addEventListener('scroll', updateActiveSlide);
+
+// Add click event listeners to dots
+dots.forEach((dot) => {
+  dot.addEventListener('click', () => {
+    const slideIndex = parseInt(dot.getAttribute('data-slide'));
+    goToSlide(slideIndex);
+  });
+});
+
+// Page 6 button navigation to Page 7 carousel
+const page6Buttons = document.querySelectorAll('#page6 button');
+const page7 = document.getElementById('page7');
+
+page6Buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const boxIndex = parseInt(button.getAttribute('data-box'));
+
+    // Calculate exact scroll position for page 7
+    const page7Position = page7.offsetTop;
+
+    // Scroll to page 7 with precise positioning
+    window.scrollTo({
+      top: page7Position,
+      behavior: 'smooth',
+    });
+
+    // Wait for scroll to complete, then navigate to the specific carousel box
+    setTimeout(() => {
+      goToSlide(boxIndex);
+    }, 600); // Adjusted timing for smooth scroll completion
+  });
+});
+
+// Trigger box 1 animation when page 7 comes into view
+const observerOptions = {
+  root: null,
+  threshold: 0.5,
+};
+
+const page7Observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && currentSlide === 0) {
+      triggerBox1Animation();
+    }
+  });
+}, observerOptions);
+
+if (page7) {
+  page7Observer.observe(page7);
+}
+
+// Box 2 Animation Variables
+let box2Animated = false;
+
+function animateBox2Pies() {
+  const leftPiePath = document.getElementById('box2-pie-path-left');
+  const rightPiePath = document.getElementById('box2-pie-path-right');
+
+  if (!leftPiePath || !rightPiePath) return;
+
+  const duration = 1000; // 1 second
+  const startTime = Date.now();
+  const π = Math.PI;
+
+  // Left pie: 98% = 352.8 degrees
+  const leftTargetAngle = 353;
+  // Right pie: 57% = 205.2 degrees
+  const rightTargetAngle = 205;
+
+  function draw() {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    // Animate left pie (98%)
+    const leftAngle = progress * leftTargetAngle;
+    const leftR = (leftAngle * π) / 180;
+    const leftX = Math.sin(leftR) * 100;
+    const leftY = Math.cos(leftR) * -100;
+    const leftMid = leftAngle > 180 ? 1 : 0;
+    const leftPath = `M 0 0 v -100 A 100 100 1 ${leftMid} 1 ${leftX} ${leftY} z`;
+    leftPiePath.setAttribute('d', leftPath);
+
+    // Animate right pie (57%)
+    const rightAngle = progress * rightTargetAngle;
+    const rightR = (rightAngle * π) / 180;
+    const rightX = Math.sin(rightR) * 100;
+    const rightY = Math.cos(rightR) * -100;
+    const rightMid = rightAngle > 180 ? 1 : 0;
+    const rightPath = `M 0 0 v -100 A 100 100 1 ${rightMid} 1 ${rightX} ${rightY} z`;
+    rightPiePath.setAttribute('d', rightPath);
+
+    if (progress < 1) {
+      requestAnimationFrame(draw);
+    }
+  }
+
+  draw();
+}
+
+function triggerBox2Animation() {
+  if (!box2Animated && currentSlide === 1) {
+    carouselBoxes[1].classList.add('animated');
+    animateBox2Pies();
+    box2Animated = true;
+  }
+}
+
+// Box 3 Animation Variables
+let box3Animated = false;
+
+function animateBox3Pies() {
+  const leftPiePath = document.getElementById('box3-pie-path-left');
+  const rightPiePath = document.getElementById('box3-pie-path-right');
+
+  if (!leftPiePath || !rightPiePath) return;
+
+  const duration = 1000; // 1 second
+  const startTime = Date.now();
+  const π = Math.PI;
+
+  // Left pie: 85% = 306 degrees
+  const leftTargetAngle = 306;
+  // Right pie: 30% = 108 degrees
+  const rightTargetAngle = 108;
+
+  function draw() {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    // Animate left pie (85%)
+    const leftAngle = progress * leftTargetAngle;
+    const leftR = (leftAngle * π) / 180;
+    const leftX = Math.sin(leftR) * 100;
+    const leftY = Math.cos(leftR) * -100;
+    const leftMid = leftAngle > 180 ? 1 : 0;
+    const leftPath = `M 0 0 v -100 A 100 100 1 ${leftMid} 1 ${leftX} ${leftY} z`;
+    leftPiePath.setAttribute('d', leftPath);
+
+    // Animate right pie (30%)
+    const rightAngle = progress * rightTargetAngle;
+    const rightR = (rightAngle * π) / 180;
+    const rightX = Math.sin(rightR) * 100;
+    const rightY = Math.cos(rightR) * -100;
+    const rightMid = rightAngle > 180 ? 1 : 0;
+    const rightPath = `M 0 0 v -100 A 100 100 1 ${rightMid} 1 ${rightX} ${rightY} z`;
+    rightPiePath.setAttribute('d', rightPath);
+
+    if (progress < 1) {
+      requestAnimationFrame(draw);
+    }
+  }
+
+  draw();
+}
+
+function triggerBox3Animation() {
+  if (!box3Animated && currentSlide === 2) {
+    carouselBoxes[2].classList.add('animated');
+    animateBox3Pies();
+    box3Animated = true;
+  }
+}
