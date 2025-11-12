@@ -145,6 +145,48 @@ const circles = {
   navy1: document.getElementById('navy1'),
 };
 
+// =============================================
+// RESPONSIVE VIEWPORT DETECTION
+// =============================================
+
+// Get current viewport dimensions and breakpoint
+function getViewportInfo() {
+  const width = window.innerWidth;
+
+  let breakpoint;
+  let animationScale;
+
+  if (width <= 480) {
+    breakpoint = 'mobile-small';
+    animationScale = 0.5;
+  } else if (width <= 767) {
+    breakpoint = 'mobile-large';
+    animationScale = 0.6;
+  } else if (width <= 1024) {
+    breakpoint = 'tablet';
+    animationScale = 0.8;
+  } else if (width <= 1366) {
+    breakpoint = 'laptop-small';
+    animationScale = 0.95;
+  } else {
+    breakpoint = 'desktop';
+    animationScale = 1;
+  }
+
+  return { width, breakpoint, animationScale };
+}
+
+// Cache viewport info and update on resize
+let viewportInfo = getViewportInfo();
+let resizeTimer;
+
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    viewportInfo = getViewportInfo();
+  }, 250);
+});
+
 // Get expand-line elements
 const expandLine = document.querySelector('.expand-line');
 const page2 = document.getElementById('page2');
@@ -526,7 +568,7 @@ function updateCircles() {
   const currentPagePositions = allPagePositions[currentSegment];
   const nextPagePositions = allPagePositions[nextSegment];
 
-  // Update each circle
+  // Update each circle with responsive scaling
   Object.keys(circles).forEach((id) => {
     const circle = circles[id];
     if (!circle) return;
@@ -541,8 +583,13 @@ function updateCircles() {
 
     // Calculate translation from initial CSS position (page1)
     const initialPos = allPagePositions[0][id];
-    const translateX = currentX - initialPos.x;
-    const translateY = currentY - initialPos.y;
+    let translateX = currentX - initialPos.x;
+    let translateY = currentY - initialPos.y;
+
+    // Apply responsive animation scaling
+    const scale = viewportInfo.animationScale;
+    translateX *= scale;
+    translateY *= scale;
 
     // Apply transform (more performant than changing left/top)
     circle.style.transform = `translate(${translateX}px, ${translateY}px)`;
@@ -602,6 +649,21 @@ const carouselBoxes = document.querySelectorAll('.carousel-box');
 const dots = document.querySelectorAll('.dot');
 let currentSlide = 0;
 let box1Animated = false;
+
+// Initialize carousel to center first box on load
+function initializeCarousel() {
+  if (carouselWrapper && carouselBoxes.length > 0) {
+    // Scroll first box into center view
+    carouselBoxes[0].scrollIntoView({
+      behavior: 'auto',  // Instant, no animation on load
+      block: 'nearest',
+      inline: 'center',
+    });
+  }
+}
+
+// Call on page load
+window.addEventListener('load', initializeCarousel);
 
 function animateBox1Pie() {
   const piePath = document.getElementById('box1-pie-path');

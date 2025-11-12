@@ -33,10 +33,17 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   color: var(--blue);
-  font-size: 2rem;
+  font-size: clamp(1rem, 2vw, 2rem);
   font-style: italic;
   font-weight: 400;
   line-height: normal;
+}
+
+/* Responsive Images and SVGs */
+img,
+svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Header styles */
@@ -60,7 +67,7 @@ header {
     font-style: inherit;
     font-weight: inherit;
     line-height: inherit;
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 1.5vw, 1.4rem);
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -183,10 +190,6 @@ main {
     justify-content: center;
 }
 
-.page2-2 {
-    margin-bottom: 5rem;
-}
-
 /* Page 2 clickable elements */
 .page2-2,
 .page2-3 {
@@ -220,17 +223,9 @@ main {
 }
 
 .orbit-text {
-    height: 100%;
+    height: 60%;
     flex-shrink: 0;
-}
-
-.orbit-text-overlay {
-    position: absolute;
-    top: 280px;
-    /* left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0; */
-    text-align: center;
+    margin-bottom: 2rem;
 }
 
 /* Page 2 animation */
@@ -330,7 +325,7 @@ main {
 }
 
 #hidden-youth-txt {
-    font-size: 4.3rem;
+    font-size: clamp(2rem, 5vw, 4.3rem);
     font-weight: 700;
     color: var(--purple);
     opacity: 0;
@@ -354,7 +349,7 @@ main {
 
 .stat-box p {
     font-weight: 700;
-    font-size: 3.1rem;
+    font-size: clamp(1.5rem, 3.5vw, 3.1rem);
     margin: 0;
     text-align: center;
     color: var(--purple);
@@ -367,7 +362,7 @@ main {
 }
 
 .stat-box-large p {
-    font-size: 4.4rem;
+    font-size: clamp(2rem, 5vw, 4.4rem);
 }
 
 .stat-box-container {
@@ -412,7 +407,7 @@ main {
 }
 
 .page-title {
-    font-size: 2.5rem;
+    font-size: clamp(1rem, 3vw, 2.5rem);
     margin-top: 5rem;
 }
 
@@ -432,7 +427,7 @@ main {
     gap: 2rem;
     justify-content: end;
     flex: 1;
-    font-size: 1.8rem;
+    font-size: clamp(0.8rem, 2vw, 1.8rem);
     opacity: 0;
     transform: translateY(100px);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
@@ -454,7 +449,7 @@ main {
 /* Page 6 buttons styling */
 #page6 button {
     color: var(--navy);
-    font-size: 1.3rem;
+    font-size: clamp(0.7rem, 1.5vw, 1.3rem);
     padding: 0.3rem 1.2rem;
     background-color: var(--blue);
     border: none;
@@ -475,8 +470,8 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 90%;
-    height: 80vh;
+    width: 100%;
+    height: fit-content;
     position: relative;
 }
 
@@ -484,11 +479,12 @@ main {
     display: flex;
     gap: 2rem;
     width: 100%;
-    height: 100%;
+    height: fit-content;
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    align-items: stretch;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
 }
@@ -505,8 +501,7 @@ main {
 }
 
 .carousel-box {
-    min-width: 80%;
-    height: 100%;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -537,7 +532,7 @@ main {
 }
 
 /* Box 1 Content Styling */
-.box1-content {
+.box-content {
     width: 100%;
     height: 100%;
     padding: 3rem 4rem;
@@ -549,7 +544,7 @@ main {
 }
 
 .box1-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.3rem, 3vw, 2.5rem);
     font-weight: 700;
     font-style: italic;
     color: var(--blue);
@@ -581,13 +576,13 @@ main {
 }
 
 .box1-pie-percent {
-    font-size: 2.2rem;
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
     font-style: italic;
     fill: var(--blue);
 }
 
 .box1-pie-label {
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 1.8vw, 1.5rem);
     font-style: italic;
     color: var(--blue);
     text-align: center;
@@ -600,7 +595,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 1.8vw, 1.5rem);
     font-style: italic;
 }
 
@@ -654,7 +649,7 @@ main {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: 1.5rem;
+    font-size: clamp(0.7rem, 1.8vw, 1.5rem);
     font-style: italic;
     color: var(--blue);
 }
@@ -684,7 +679,7 @@ main {
 }
 
 .box-caption p {
-    font-size: 2rem;
+    font-size: clamp(1rem, 2vw, 2rem);
     font-style: italic;
     color: var(--blue);
     text-align: center;
@@ -764,19 +759,8 @@ main {
 }
 
 /* Box 2 Content Styling */
-.box2-content {
-    width: 100%;
-    height: 100%;
-    padding: 3rem 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    position: relative;
-    justify-content: space-between;
-}
-
 .box2-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.3rem, 3vw, 2.5rem);
     font-weight: 700;
     font-style: italic;
     color: var(--blue);
@@ -804,18 +788,18 @@ main {
 
 /* Pie Chart SVG */
 .box2-pie-chart {
-    width: 200px;
-    height: 200px;
+    width: 80%;
+    height: auto;
 }
 
 .box2-pie-percent {
-    font-size: 2.2rem;
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
     font-style: italic;
     fill: var(--blue);
 }
 
 .box2-pie-label {
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 1.8vw, 1.5rem);
     font-style: italic;
     color: var(--blue);
     text-align: center;
@@ -842,20 +826,8 @@ main {
     animation-delay: 1.5s;
 }
 
-/* Box 3 Content Styling */
-.box3-content {
-    width: 100%;
-    height: 100%;
-    padding: 3rem 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    position: relative;
-    justify-content: space-between;
-}
-
 .box3-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.3rem, 3vw, 2.5rem);
     font-weight: 700;
     font-style: italic;
     color: var(--blue);
@@ -883,18 +855,18 @@ main {
 
 /* Pie Chart SVG */
 .box3-pie-chart {
-    width: 200px;
-    height: 200px;
+    width: 80%;
+    height: auto;
 }
 
 .box3-pie-percent {
-    font-size: 2.2rem;
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
     font-style: italic;
     fill: var(--blue);
 }
 
 .box3-pie-label {
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 1.8vw, 1.5rem);
     font-style: italic;
     color: var(--blue);
     text-align: center;
@@ -962,7 +934,7 @@ main {
 }
 
 .page10-flow-text {
-    font-size: 1.5rem;
+    font-size: clamp(0.8rem, 1.8vw, 1.5rem);
     font-style: italic;
     color: var(--blue);
     margin: 0;
@@ -974,7 +946,7 @@ main {
 }
 
 .page10-subtitle {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 1.8vw, 1.5rem);
     font-style: italic;
     color: var(--blue);
     text-align: center;
@@ -986,6 +958,7 @@ main {
     justify-content: center;
     gap: 2rem;
     margin-top: 2rem;
+    flex: 1;
 }
 
 .page10-phone-item {
@@ -1004,8 +977,11 @@ main {
 }
 
 .page10-phone-item img {
-    height: 450px;
-    width: auto;
+    height: auto;
+    width: 100%;
+    max-width: 200px;
+    max-height: 40vh;
+    object-fit: contain;
 }
 
 .page10-badge {
@@ -1051,7 +1027,8 @@ main {
 
 .page11-content-wrapper {
     position: relative;
-    width: 70%;
+    width: 1070px;
+    max-width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1068,6 +1045,7 @@ main {
 .page11-lv5,
 .page11-lv6 {
     position: absolute;
+    height: auto;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
@@ -1084,31 +1062,37 @@ main {
 }
 
 .page11-lv1 {
+    width: 9.25%;
     bottom: 140%;
     left: -1%;
 }
 
 .page11-lv2 {
+    width: 9.44%;
     bottom: 140%;
     left: 12%;
 }
 
 .page11-lv3 {
+    width: 11.31%;
     bottom: 140%;
     left: 22%;
 }
 
 .page11-lv4 {
+    width: 24.39%;
     bottom: 140%;
     left: 32%;
 }
 
 .page11-lv5 {
+    width: 11.59%;
     bottom: 140%;
     left: 58%;
 }
 
 .page11-lv6 {
+    width: 28.79%;
     bottom: 140%;
     left: 72%;
 }
@@ -1209,17 +1193,16 @@ main {
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    width: 1208px;
     max-width: 90%;
 }
 
 .page12-image {
-    width: auto;
     height: auto;
-    max-height: 50vh;
-    flex: 1;
 }
 
 .page12-image:nth-child(1) {
+    width: 49.04%;
     opacity: 0;
     transform: translateX(2rem);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
@@ -1230,7 +1213,12 @@ main {
     transform: translateX(0);
 }
 
+.page12-image:nth-child(2) {
+    width: 19.58%;
+}
+
 .page12-image:nth-child(3) {
+    width: 31.38%;
     opacity: 0;
     transform: translateX(-2rem);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
@@ -1327,13 +1315,12 @@ main {
 
 .page13-progress {
     display: block;
-    width: 40%;
+    width: 25%;
     height: auto;
     opacity: 0;
     transform: translateY(100px);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
     position: relative;
-    top: -4rem;
 }
 
 .page13-progress.animate {
@@ -1364,19 +1351,14 @@ main {
 }
 
 .page13-connect-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
     font-weight: 400;
     font-style: italic;
     color: var(--blue);
     text-align: center;
-    /* margin-bottom: 2rem; */
     opacity: 0;
     transform: translateY(100px);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
-
-    position: absolute;
-    top: 32%;
-    text-align: center;
 }
 
 .page13-connect-title.animate {
@@ -1385,6 +1367,7 @@ main {
 }
 
 #page13 img[alt="QR Code"] {
+    margin-top: 4rem;
     opacity: 0;
     transform: translateY(100px);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
@@ -1408,7 +1391,7 @@ main {
 }
 
 #page8 p:nth-child(1) {
-    font-size: 2.5rem;
+    font-size: clamp(1rem, 3vw, 2.5rem);
     justify-self: flex-start;
 }
 
@@ -1422,7 +1405,7 @@ main {
 
 .page8-bottom-text b {
     color: var(--blue);
-    font-size: 2.5rem;
+    font-size: clamp(1rem, 3vw, 2.5rem);
 }
 
 .page8-image {
@@ -1431,18 +1414,30 @@ main {
     justify-content: center;
     align-items: center;
     margin-top: 10rem;
+    width: 1287px;
+    max-width: 90%;
+}
+
+.page8-image img {
+    height: auto;
+}
+
+.page8-image img:nth-child(1) {
+    width: 100%;
 }
 
 .page8-image img:nth-child(2) {
     position: absolute;
     left: 42%;
     bottom: 120%;
+    width: 8.31%;
 }
 
 .page8-image img:nth-child(3) {
     position: absolute;
     left: 50.7%;
     bottom: 120%;
+    width: 13.44%;
 }
 
 .page8-image img:nth-child(4) {
@@ -1450,18 +1445,21 @@ main {
     left: 64.8%;
     bottom: 120%;
     z-index: 1;
+    width: 13.05%;
 }
 
 .page8-image img:nth-child(5) {
     position: absolute;
     left: 23%;
     bottom: 275%;
+    width: 50.12%;
 }
 
 .page8-image img:nth-child(6) {
     position: absolute;
     left: 3.3%;
     bottom: 120%;
+    width: 20.20%;
 }
 
 /* Page 8 image animation */
@@ -1499,7 +1497,7 @@ main {
 }
 
 #page9 img[alt="Orbit Text"] {
-    height: 30%;
+    height: 15%;
     opacity: 0;
     transform: translateY(100px);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
@@ -1512,7 +1510,7 @@ main {
 
 #page9 img[alt="App Icon"] {
     height: 25%;
-    margin-bottom: 3rem;
+    margin: 3rem 0;
     opacity: 0;
     transform: translateY(100px);
     transition: opacity 0.8s ease-out, transform 1s ease-out;
@@ -1534,50 +1532,324 @@ main {
     transform: translateY(0);
 }
 
-/* Responsive Media Queries for Carousel Boxes */
+/* =============================================
+   RESPONSIVE MEDIA QUERIES
+   ============================================= */
+
+/* Small Laptops (1025px - 1366px) */
+@media (max-width: 1366px) {
+    .circles-container {
+        width: 1400px;
+        transform: scale(0.9);
+    }
+
+    header {
+        padding: 1.2rem 1.5rem;
+    }
+
+    #page6 > div {
+        gap: 3rem;
+    }
+}
+
+/* Tablets (768px - 1024px) - Maintain full-screen sections */
 @media (max-width: 1024px) {
-    /* Stack charts vertically on tablets and smaller */
-    .box1-charts-wrapper,
+    .circles-container {
+        width: 1200px;
+        transform: scale(0.7);
+    }
+
+    header {
+        padding: 1rem 1.5rem;
+    }
+
+    .page-title {
+        margin-top: 3rem;
+    }
+
+    /* Stack charts vertically on tablets */
+    /* .box1-charts-wrapper,
     .box2-charts-wrapper,
     .box3-charts-wrapper {
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
+    } */
+
+    .box1-bar {
+        padding-right: 0.5rem;
     }
 
     .box1-bar-section {
         width: 100%;
     }
 
-    .box-caption p {
-        font-size: 1.5rem;
+    /* Page 6 - Adjust icon layout */
+    #page6 > div {
+        gap: 2rem;
+    }
+
+    #page6 img {
+        height: 20vh;
+    }
+
+    /* Page 8 images - Scale for tablet screens */
+    .page8-image {
+        transform: scale(0.85);
+        transform-origin: center;
+    }
+
+    /* Page 10 */
+    /* .page10-phone-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        flex: 1;
+    }
+
+    .page10-phone-item {
+        max-height: 100%;
+    }
+    
+    .page10-phone-item img {
+        flex: 1;
+    } */
+
+    /* Page 11 content */
+    .page11-content-wrapper {
+        transform: scale(0.8);
+    }
+
+    /* Page 12 images */
+    .page12-images {
+        gap: 1.5rem;
+        transform: scale(0.85);
+        transform-origin: center;
+    }
+
+    .bullet-connector-line {
+        left: calc(2rem + 6px);
+    }
+
+    .bullet-icon {
+        width: 15px;
+        height: 15px;
+    }
+
+    .page10-bullet, .page11-bullet, .page12-bullet, .page13-bullet, .page13-bullet2 {
+        position: absolute;
+        left: calc(2rem);
+    }
+
+    .page10-flow, .page11-header, .page12-header, .page13-header, .page13-header2 {
+        margin-left: 4rem;
     }
 }
 
-@media (max-width: 768px) {
+/* Large Phones/Phablets (481px - 767px) - Keep full-screen sections */
+@media (max-width: 767px) {
+    /* Keep 100vh sections, scale content to fit */
+    .circles-container {
+        width: 900px;
+        transform: scale(0.5);
+    }
+
+    header {
+        padding: 0.8rem 1rem;
+    }
+
+    .page-title {
+        margin-top: 1rem;
+    }
+
     /* Further adjustments for mobile */
-    .box1-content,
-    .box2-content,
-    .box3-content {
-        padding: 2rem;
+    .box-content {
+        padding: 2rem 1.5rem;
         gap: 1.5rem;
     }
 
-    .box1-title,
-    .box2-title,
-    .box3-title {
-        font-size: 2rem;
+    /* Page 2 adjustments */
+    .page2-content {
+        gap: 2rem;
     }
 
-    .box-caption {
-        padding: 0.75rem;
+    .page2-2 {
+        margin-bottom: 2rem;
     }
 
-    .box-caption p {
-        font-size: 1.2rem;
+    .scroll-arrow {
+        width: 80px;
     }
 
-    .carousel-container {
-        width: 95%;
+    /* Page 4 adjustments */
+    #page4-content {
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+        transform: scale(0.8);
+        transform-origin: center;
+        /* margin-top: 2rem; */
+    }
+
+    #page4-content div {
+        width: 50%;
+    }
+
+    /* Page 5 stat boxes */
+    .stat-box {
+        width: 9rem;
+    }
+
+    .stat-box-container {
+        padding: 0 2rem;
+    }
+
+    .page5-content {
+        margin: 5rem 0;
+    }
+
+    .arrow {
+        width: 14rem;
+    }
+
+    /* Page 6 - Adjust spacing, keep horizontal layout */
+    #page6 > div {
+        padding: 0 2rem;
+        gap: 1.5rem;
+    }
+
+    /* Page 8 images - Scale proportionally while maintaining spatial relationships */
+    .page8-image {
+        transform: scale(0.8);
+        transform-origin: center;
+    }
+
+    /* Page 9 - Keep percentage sizing, just adjust spacing */
+    #page9 img[alt="App Icon"] {
+        margin: 2rem 0;
+    }
+
+    /* Page 10 */
+    .page10-phone-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .page10-phone-item img {
+        width: 50%;
+        /* flex: 1; */
+    }
+
+    /* Page 11 */
+    .page11-header {
+        margin-bottom: 30%;
+    }
+
+    .page11-content-wrapper {
+        transform: scale(0.65);
+    }
+
+    .page11-arrow, .page11-screen {
+        width: 50%;
+    }
+
+    /* Page 12 */
+    .page12-images {
+        gap: 2rem;
+        transform: scale(0.8);
+        transform-origin: center;
+    }
+
+    /* Page 13 */
+    #page13 img[alt="QR Code"] {
+        width: 20%;
+        min-width: 150px;
+    }
+
+    .box1-charts-wrapper, .box2-charts-wrapper, .box3-charts-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box3-pie-section, .box2-pie-section {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .box1-pie-label > br {
+        display: none;
+    }
+
+    .box1-bar {
+        height: 30px;
+    }
+
+    .box1-legend {
+        margin-top: 0;
+    }
+
+    .box1-charts-wrapper {
+        gap: 0;
+    }
+
+    .box2-pie-chart, .box3-pie-chart {
+        width: 40%;
+    }
+}
+
+/* Small Phones (320px - 480px) - Keep full-screen, tighter spacing */
+@media (max-width: 480px) {
+    .hk-icon {
+        width: 20%;
+    }
+
+    #page4-content div img[alt="Page 4 Icon 2"] {
+        height: 40%
+    }
+
+    #page6 button {
+        padding: 0.2rem 0.6rem;
+    }
+
+    .page10-arrow {
+        width: 68px;
+        height: 10px;
+    }
+
+    .page10-flow {
+        gap: 0.5rem;
+    }
+
+    #page9 img[alt="Orbit Text"] {
+        width: 80%;
+    }
+
+    .page10-subtitle {
+        padding-left: 2rem;
+    }
+
+    .page10-phone-grid {
+        padding-left: 2.5rem;
+    }
+
+    .box1-pie-chart {
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .box1-pie-section {
+        margin-bottom: 1rem;
+    }
+
+    .box1-arrow {
+        width: 50px;
+        height: 30px;
+    }
+
+    .box1-legend-color {
+        width: 15px;
+        height: 15px;
     }
 }
