@@ -8,7 +8,7 @@
 </head>
 <body>
   <header>
-    <button class="about-btn">About Us</button>
+    <button class="about-btn" onclick="window.location.href='about.html'">About Us</button>
   </header>
 
   <!-- Animated circles container -->
@@ -34,6 +34,7 @@
   </div>
 
   <main>
+    <div class="bullet-connector-line"></div>
     <section class="landing-page" id="page1">
       <img src="./assets/planet.gif" alt="Planet" autoplay loop muted playsinline>
     </section>
@@ -56,14 +57,14 @@
     </section>
 
     <section class="landing-page" id="page3">
-        <b>Social Wellness :</b>
+        <b class="page-title">Social wellbeing is ...</b>
         <p>The ability to create and maintain healthy relationships with others by participating in community or group activities</p>
         <img src="./assets/page3_people.svg" alt="Page 3 People">
     </section>
 
     <section class="landing-page" id="page4">
-        <p>Contrarily, in Hong Kong, people aged between 18-23...</p>
-        <img src="./assets/page4_hk_icon.svg" alt="HK Icon">
+        <b class="page-title">Contrarily, in Hong Kong, people aged between 18-23...</b>
+        <img src="./assets/page4_hk_icon.svg" alt="HK Icon" class="hk-icon">
         <div id="page4-content">
             <div>
                 <img src="./assets/page4_icon1.svg" alt="Page 4 Icon 1">
@@ -80,7 +81,7 @@
 
     <section class="landing-page" id="page5">
         <div class="page5-content">
-            <b>Alertly, more Hong Kong students are skipping classes</b>
+            <b class="page-title">Alertly, more Hong Kong students are skipping classes</b>
             <div class="stat-box-container">
                 <div class="stat-box">
                     <p>4000</p>
@@ -98,7 +99,7 @@
     </section>
 
     <section class="landing-page" id="page6">
-        <b>Why is this happening in Hong Kong?</b>
+        <b class="page-title">Why is this happening in Hong Kong?</b>
         <div>
             <div>
                 <img src="./assets/page6_icon1.svg" alt="Page 6 Icon 1">
@@ -165,7 +166,7 @@
                 </div>
                 <div class="carousel-box">
                     <div class="box2-content">
-                        <h2 class="box2-title">Social Media Addiction and Apathy in Physical Activities</h2>
+                        <h2 class="box2-title">Social Media Addiction & Apathy in Physical Activities</h2>
 
                         <!-- Left Pie Chart: 98% -->
                         <div class="box2-pie-section box2-pie-left">
@@ -233,15 +234,119 @@
     </section>
 
     <section class="landing-page" id="page8">
-      <!-- Landing Page 8 content -->
+        <p>Above factors lowers the <b>overall</b> social wellbeing index</p>
+        <div class="page8-image">
+            <img src="./assets/page8_line.svg" alt="Line">
+            <img src="./assets/page8_fulfilment.svg" alt="Fulfilment">
+            <img src="./assets/page8_physical_wellbeing.svg" alt="Physical Wellbeing">
+            <img src="./assets/page8_purpose.svg" alt="Purpose">
+            <img src="./assets/page8_arrow.svg" alt="Arrow">
+            <img src="./assets/page8_social_wellbeing.svg" alt="Social Wellbeing">
+        </div>
+        <div class="page8-bottom-text">
+            <p>With the increasing severity of such situation</p>
+            <b>community-based, socially-engaged activities are in need</b>
+        </div>
     </section>
 
     <section class="landing-page" id="page9">
-      <!-- Landing Page 9 content -->
+        <img src="./assets/orbit_text.svg" alt="Orbit Text">
+        <img src="./assets/app_icon.svg" alt="App Icon">
+        <p>We introduce Orbit: </p>
+        <p>App for your social-wellness and community engagement</p>
     </section>
 
     <section class="landing-page" id="page10">
-      <!-- Landing Page 10 content -->
+        <h1 class="page10-title">How does it work?</h1>
+
+        <div class="page10-flow">
+            <div class="page10-bullet">
+                <img src="./assets/bullet_circle.svg" alt="Bullet" class="bullet-icon">
+            </div>
+            <p class="page10-flow-text">User creates Orbit account</p>
+            <img src="./assets/arrow_right.svg" alt="Arrow" class="page10-arrow">
+            <p class="page10-flow-text">takes On-Board Questionnaires</p>
+        </div>
+
+        <p class="page10-subtitle">There are a total of 20 questions, 4 questions per aspect:</p>
+
+        <div class="page10-phone-grid">
+            <div class="page10-phone-item">
+                <img src="./assets/page10_phone1.png" alt="Questionnaire 1">
+                <div class="page10-badge">Social Connection</div>
+            </div>
+            <div class="page10-phone-item">
+                <img src="./assets/page10_phone2.png" alt="Questionnaire 2">
+                <div class="page10-badge">Emotional Status</div>
+            </div>
+            <div class="page10-phone-item">
+                <img src="./assets/page10_phone3.png" alt="Questionnaire 3">
+                <div class="page10-badge">Active Lifestyle</div>
+            </div>
+            <div class="page10-phone-item">
+                <img src="./assets/page10_phone4.png" alt="Questionnaire 4">
+                <div class="page10-badge">Digital Lifestyle</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="landing-page" id="page11">
+        <div class="page11-header">
+            <div class="page11-bullet">
+                <img src="./assets/bullet_circle.svg" alt="Bullet" class="bullet-icon">
+            </div>
+            <p class="page11-text">Initial social level is assigned based on the survey result</p>
+        </div>
+
+        <!-- <img src="./assets/page11_content.svg" alt="Social Level Progression" class="page11-content"> -->
+         <div class="page11-content-wrapper">
+            <img src="./assets/page11_line.svg" alt="Line" class="page11-line">
+            <img src="./assets/page11_lv1.svg" alt="Level 1" class="page11-lv1">
+            <img src="./assets/page11_lv2.svg" alt="Level 2" class="page11-lv2">
+            <img src="./assets/page11_lv3.svg" alt="Level 3" class="page11-lv3">
+            <img src="./assets/page11_lv4.svg" alt="Level 4" class="page11-lv4">
+            <img src="./assets/page11_lv5.svg" alt="Level 5" class="page11-lv5">
+            <img src="./assets/page11_lv6.svg" alt="Level 6" class="page11-lv6">
+        </div>
+        <div class="page11-arrow-screen">
+            <img src="./assets/page11_arrow.svg" alt="Arrow" class="page11-arrow">
+            <img src="./assets/page11_screen.svg" alt="Screen" class="page11-screen">
+        </div>
+    </section>
+
+    <section class="landing-page" id="page12">
+        <div class="page12-header">
+            <div class="page12-bullet">
+                <img src="./assets/bullet_circle.svg" alt="Bullet" class="bullet-icon">
+            </div>
+            <p class="page12-text">Users earn points by joining various social events</p>
+        </div>
+
+        <div class="page12-images">
+            <img src="./assets/page12_image1.svg" alt="Image 1" class="page12-image">
+            <img src="./assets/page12_image2.svg" alt="Image 2" class="page12-image">
+            <img src="./assets/page12_image3.svg" alt="Image 3" class="page12-image">
+        </div>
+    </section>
+
+    <section class="landing-page" id="page13">
+        <div class="page13-header">
+            <div class="page13-bullet">
+                <img src="./assets/bullet_circle.svg" alt="Bullet" class="bullet-icon">
+            </div>
+            <p class="page13-text">Users can level up to the next social level!</p>
+        </div>
+
+        <img src="./assets/orbit_text.svg" alt="Progress" class="page13-progress">
+        <h2 class="page13-connect-title">Connect your space with us.</h2>
+        <img src="./assets/page13_qr.svg" alt="QR Code">
+
+        <div class="page13-header2">
+            <div class="page13-bullet2">
+                <img src="./assets/bullet_circle.svg" alt="Bullet" class="bullet-icon">
+            </div>
+            <p class="page13-text2">Users get to improve social wellbeing through Orbit</p>
+        </div>
     </section>
   </main>
 

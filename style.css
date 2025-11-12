@@ -187,6 +187,19 @@ main {
     margin-bottom: 5rem;
 }
 
+/* Page 2 clickable elements */
+.page2-2,
+.page2-3 {
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.page2-2:hover,
+.page2-3:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
@@ -207,8 +220,7 @@ main {
 }
 
 .orbit-text {
-    width: 580px;
-    height: 333px;
+    height: 100%;
     flex-shrink: 0;
 }
 
@@ -221,6 +233,20 @@ main {
     text-align: center;
 }
 
+/* Page 2 animation */
+.orbit-text,
+.orbit-text-overlay {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+.orbit-text.animate,
+.orbit-text-overlay.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .expand-line {
     width: 0;
     height: 1px;
@@ -231,17 +257,35 @@ main {
 #page3 p {
     width: 60%;
     text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
 }
 
 #page3 img {
     width: 20%;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.6s ease-out;
 }
 
-#page4 img[alt="HK Icon"] {
+#page3 img.animate-pop {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* Page 4 HK icon animation */
+.hk-icon {
     width: 12%;
     margin-top: 3rem;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.6s ease-out;
+}
+
+.hk-icon.animate-pop {
+    transform: scale(1);
+    opacity: 1;
 }
 
 #page4-content {
@@ -261,22 +305,42 @@ main {
     text-align: center;
 }
 
-#page4-content div img {
+#page4-content div img[alt="Page 4 Icon 1"] {
+    margin-bottom: 3rem;
     width: 60%;
 }
 
-#page4-content div img[alt="Page 4 Icon 1"] {
+#page4-content div img[alt="Page 4 Icon 2"] {
     margin-bottom: 3rem;
+    height: 50%
 }
 
+/* Page 4 icons animation */
+#page4-content div img[alt="Page 4 Icon 1"],
 #page4-content div img[alt="Page 4 Icon 2"] {
-    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+#page4-content div img[alt="Page 4 Icon 1"].animate,
+#page4-content div img[alt="Page 4 Icon 2"].animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #hidden-youth-txt {
     font-size: 4.3rem;
     font-weight: 700;
     color: var(--purple);
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+#hidden-youth-txt.animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .stat-box {
@@ -313,7 +377,7 @@ main {
     gap: 2rem;
     position: relative;
     flex: 1;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
 }
 
 .arrow {
@@ -347,7 +411,7 @@ main {
     justify-content: space-around;
 }
 
-#page6 > b {
+.page-title {
     font-size: 2.5rem;
     margin-top: 5rem;
 }
@@ -369,10 +433,18 @@ main {
     justify-content: end;
     flex: 1;
     font-size: 1.8rem;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+#page6 > div > div.animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #page6 img {
-    height: 32vh;
+    height: 28vh;
     max-width: 100%;
     width: auto;
     object-fit: contain;
@@ -461,7 +533,7 @@ main {
 }
 
 .dot.active {
-    background-color: var(--red);
+    background-color: var(--purple);
 }
 
 /* Box 1 Content Styling */
@@ -603,11 +675,13 @@ main {
     position: absolute;
     bottom: 3rem;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(100px);
     width: calc(100% - 8rem);
     border: 1px solid var(--blue);
     border-radius: 20px;
     padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
 .box-caption p {
@@ -669,10 +743,15 @@ main {
 .carousel-box.animated .box1-pie-percent,
 .carousel-box.animated .box1-pie-label,
 .carousel-box.animated .box1-arrow,
-.carousel-box.animated .box1-legend,
-.carousel-box.animated .box1-caption {
-    animation: fadeIn 1s ease-out forwards;
+.carousel-box.animated .box1-legend {
+    animation: fadeIn 0.5s ease-out forwards;
     animation-delay: 1s;
+}
+
+.carousel-box.animated .box-caption {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    transition-delay: 1s;
 }
 
 /* Box 2 Content Styling */
@@ -737,15 +816,13 @@ main {
 
 /* Box 2 Animation - Initial Hidden States */
 .box2-pie-percent,
-.box2-pie-label,
-.box2-caption {
+.box2-pie-label {
     opacity: 0;
 }
 
 /* Box 2 Animation Triggers */
 .carousel-box.animated .box2-pie-percent,
-.carousel-box.animated .box2-pie-label,
-.carousel-box.animated .box2-caption {
+.carousel-box.animated .box2-pie-label {
     animation: fadeIn 1s ease-out forwards;
     animation-delay: 1s;
 }
@@ -812,15 +889,626 @@ main {
 
 /* Box 3 Animation - Initial Hidden States */
 .box3-pie-percent,
-.box3-pie-label,
-.carousel-box:nth-child(3) .box-caption {
+.box3-pie-label {
     opacity: 0;
 }
 
 /* Box 3 Animation Triggers */
 .carousel-box:nth-child(3).animated .box3-pie-percent,
-.carousel-box:nth-child(3).animated .box3-pie-label,
-.carousel-box:nth-child(3).animated .box-caption {
+.carousel-box:nth-child(3).animated .box3-pie-label {
     animation: fadeIn 1s ease-out forwards;
     animation-delay: 1s;
+}
+
+/* Page 10 - How does it work */
+.page10-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page10-flow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 8rem;
+    align-self: flex-start;
+}
+
+.page10-bullet {
+    display: flex;
+    align-items: center;
+}
+
+.bullet-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.bullet-connector-line {
+    position: absolute;
+    left: calc(8rem + 10.5px);
+    top: 0;
+    height: 0;
+    width: 4px;
+    background-color: var(--blue);
+    z-index: 90;
+}
+
+.page10-flow-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    margin: 0;
+}
+
+.page10-arrow {
+    width: 98px;
+    height: 15px;
+}
+
+.page10-subtitle {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.page10-phone-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.page10-phone-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+.page10-phone-item.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page10-phone-item img {
+    height: 450px;
+    width: auto;
+}
+
+.page10-badge {
+    background-color: var(--blue);
+    color: var(--navy);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Page 11 - Social Level Progression */
+.page11-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 20%;
+    align-self: flex-start;
+    margin-left: 8rem;
+}
+
+.page11-bullet {
+    display: flex;
+    align-items: center;
+}
+
+.page11-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    margin: 0;
+}
+
+.page11-content {
+    /* width: auto;
+    max-width: 90%;
+    height: auto;
+    max-height: 60vh; */
+    width: 60%;
+}
+
+.page11-content-wrapper {
+    position: relative;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page11-line {
+    width: 100%;
+}
+
+.page11-lv1,
+.page11-lv2,
+.page11-lv3,
+.page11-lv4,
+.page11-lv5,
+.page11-lv6 {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+.page11-lv1.animate,
+.page11-lv2.animate,
+.page11-lv3.animate,
+.page11-lv4.animate,
+.page11-lv5.animate,
+.page11-lv6.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page11-lv1 {
+    bottom: 140%;
+    left: -1%;
+}
+
+.page11-lv2 {
+    bottom: 140%;
+    left: 12%;
+}
+
+.page11-lv3 {
+    bottom: 140%;
+    left: 22%;
+}
+
+.page11-lv4 {
+    bottom: 140%;
+    left: 32%;
+}
+
+.page11-lv5 {
+    bottom: 140%;
+    left: 58%;
+}
+
+.page11-lv6 {
+    bottom: 140%;
+    left: 72%;
+}
+
+.page11-arrow-screen {
+    display: flex;
+    justify-content: flex-start;
+    width: 70%;
+    margin-left: 5%;
+}
+
+.page11-arrow {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.8s ease-out;
+}
+
+.page11-arrow.animate {
+    clip-path: inset(0 0 0 0);
+}
+
+.page11-screen {
+    margin-left: 1rem;
+    margin-top: 2rem;
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.page11-screen.animate {
+    opacity: 1;
+}
+
+.page11-diagram {
+    position: relative;
+    width: 1070px;
+    height: 300px;
+    margin: 0 auto 4rem;
+}
+
+.progress-line {
+    position: absolute;
+    width: 100%;
+    top: 130px;
+}
+
+.level-item {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 0;
+}
+
+.level-item img {
+    height: 180px;
+    width: auto;
+    margin-bottom: 1rem;
+}
+
+.level-name {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--blue);
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.level-number {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--blue);
+    margin: 0;
+}
+
+/* Page 12 - Events and Points */
+.page12-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    align-self: flex-start;
+    margin-left: 8rem
+}
+
+.page12-bullet {
+    display: flex;
+    align-items: center;
+}
+
+.page12-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    margin: 0;
+}
+
+.page12-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    max-width: 90%;
+}
+
+.page12-image {
+    width: auto;
+    height: auto;
+    max-height: 50vh;
+    flex: 1;
+}
+
+.page12-image:nth-child(1) {
+    opacity: 0;
+    transform: translateX(2rem);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+.page12-image:nth-child(1).animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.page12-image:nth-child(3) {
+    opacity: 0;
+    transform: translateX(-2rem);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+.page12-image:nth-child(3).animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.page12-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    position: relative;
+}
+
+.page12-event-box {
+    border: 3px solid var(--blue);
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: rgba(217, 217, 217, 0.1);
+}
+
+.page12-event-box img {
+    height: 350px;
+    width: auto;
+    display: block;
+}
+
+.page12-phone-center img {
+    height: 462px;
+    width: auto;
+}
+
+.page12-report-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.page12-report-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    margin: 0;
+}
+
+.page12-report-box img {
+    height: 251px;
+    width: auto;
+}
+
+.page12-connector1 {
+    position: absolute;
+    left: 45%;
+    top: 35%;
+    width: 65px;
+    height: 354px;
+}
+
+.page12-connector2 {
+    position: absolute;
+    right: 28%;
+    top: 55%;
+    width: 28px;
+    height: 51px;
+}
+
+/* Page 13 - Level Up and Connect */
+.page13-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    align-self: flex-start;
+    margin-left: 8rem;
+}
+
+.page13-bullet {
+    display: flex;
+    align-items: center;
+}
+
+.page13-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    margin: 0;
+}
+
+.page13-progress {
+    display: block;
+    width: 40%;
+    height: auto;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+    position: relative;
+    top: -4rem;
+}
+
+.page13-progress.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page13-header2 {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 10rem;
+    align-self: flex-start;
+    margin-left: 8rem;
+    margin-top: 4rem;
+}
+
+.page13-bullet2 {
+    display: flex;
+    align-items: center;
+}
+
+.page13-text2 {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--blue);
+    margin: 0;
+}
+
+.page13-connect-title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--blue);
+    text-align: center;
+    /* margin-bottom: 2rem; */
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+
+    position: absolute;
+    top: 32%;
+    text-align: center;
+}
+
+.page13-connect-title.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#page13 img[alt="QR Code"] {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+#page13 img[alt="QR Code"].animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page13-placeholder {
+    width: 205px;
+    height: 205px;
+    background-color: #d9d9d9;
+    margin: 0 auto;
+}
+
+#page8 {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#page8 p:nth-child(1) {
+    font-size: 2.5rem;
+    justify-self: flex-start;
+}
+
+.page8-bottom-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.page8-bottom-text b {
+    color: var(--blue);
+    font-size: 2.5rem;
+}
+
+.page8-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+}
+
+.page8-image img:nth-child(2) {
+    position: absolute;
+    left: 42%;
+    bottom: 120%;
+}
+
+.page8-image img:nth-child(3) {
+    position: absolute;
+    left: 50.7%;
+    bottom: 120%;
+}
+
+.page8-image img:nth-child(4) {
+    position: absolute;
+    left: 64.8%;
+    bottom: 120%;
+    z-index: 1;
+}
+
+.page8-image img:nth-child(5) {
+    position: absolute;
+    left: 23%;
+    bottom: 275%;
+}
+
+.page8-image img:nth-child(6) {
+    position: absolute;
+    left: 3.3%;
+    bottom: 120%;
+}
+
+/* Page 8 image animation */
+.page8-image img:nth-child(2),
+.page8-image img:nth-child(3),
+.page8-image img:nth-child(4),
+.page8-image img:nth-child(6) {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.page8-image img.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Arrow reveals from right to left */
+.page8-image img:nth-child(5) {
+    clip-path: inset(0 0 0 100%);
+    transition: clip-path 1s ease-out;
+}
+
+.page8-image img:nth-child(5).animate {
+    clip-path: inset(0 0 0 0);
+}
+
+#page9 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+#page9 img[alt="Orbit Text"] {
+    height: 30%;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+#page9 img[alt="Orbit Text"].animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#page9 img[alt="App Icon"] {
+    height: 25%;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+#page9 img[alt="App Icon"].animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#page9 p {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-out, transform 1s ease-out;
+}
+
+#page9 p.animate {
+    opacity: 1;
+    transform: translateY(0);
 }

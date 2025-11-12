@@ -91,6 +91,33 @@ const page10Positions = {
   navy1: { x: 0, y: 527 },
 };
 
+const page11Positions = {
+  yellow: { x: -1200, y: -300 },
+  pink: { x: 650, y: -350 },
+  purple2: { x: 450, y: 200 },
+  purple1: { x: -600, y: -650 },
+  navy2: { x: 300, y: -500 },
+  navy1: { x: -100, y: 600 },
+};
+
+const page12Positions = {
+  yellow: { x: -1100, y: -250 },
+  pink: { x: 800, y: -400 },
+  purple2: { x: 500, y: 250 },
+  purple1: { x: -700, y: -600 },
+  navy2: { x: 350, y: -450 },
+  navy1: { x: -150, y: 650 },
+};
+
+const page13Positions = {
+  yellow: { x: -1250, y: -350 },
+  pink: { x: 700, y: -450 },
+  purple2: { x: 400, y: 300 },
+  purple1: { x: -650, y: -700 },
+  navy2: { x: 280, y: -520 },
+  navy1: { x: -50, y: 700 },
+};
+
 // Consolidate all page positions into an array
 const allPagePositions = [
   page1Positions,
@@ -103,6 +130,9 @@ const allPagePositions = [
   page8Positions,
   page9Positions,
   page10Positions,
+  page11Positions,
+  page12Positions,
+  page13Positions,
 ];
 
 // Get circle elements
@@ -119,6 +149,15 @@ const circles = {
 const expandLine = document.querySelector('.expand-line');
 const page2 = document.getElementById('page2');
 const page2Content = document.querySelector('.page2-content');
+
+// Animate page 2 elements
+let page2Animated = false;
+
+// Animate page 3 people image
+let page3Animated = false;
+
+// Animate page 4 HK icon
+let page4Animated = false;
 
 // Linear interpolation function
 function lerp(start, end, progress) {
@@ -152,29 +191,69 @@ function updateExpandLine() {
   expandLine.style.width = progress * 320 + 'px';
 }
 
-// Update parallax for all pages (2-10) based on scroll progress
-function updateAllPagesParallax() {
+// Animate page 2 elements
+function animatePage2Elements() {
+  if (page2Animated) return;
+
+  const page2 = document.getElementById('page2');
+  if (!page2) return;
+
   const windowHeight = window.innerHeight;
+  const page2Rect = page2.getBoundingClientRect();
 
-  // Loop through pages 2-10
-  for (let i = 2; i <= 10; i++) {
-    const page = document.getElementById(`page${i}`);
-    if (!page) continue;
+  // Trigger when page 2 is 30% visible from top
+  if (page2Rect.top < windowHeight * 0.3 && page2Rect.bottom > 0) {
+    page2Animated = true;
 
-    const pageRect = page.getBoundingClientRect();
-    const pageTop = pageRect.top;
+    const orbitText = document.querySelector('.orbit-text');
+    const orbitOverlay = document.querySelector('.orbit-text-overlay');
 
-    // Calculate scroll progress (0 to 1) - always calculate and clamp
-    // This keeps the final position when scrolled past the page
-    let rawProgress = (windowHeight - pageTop) / (windowHeight * 0.7);
-    let progress = Math.min(Math.max(rawProgress, 0), 1);
+    setTimeout(() => orbitText?.classList.add('animate'), 0);
+    setTimeout(() => orbitOverlay?.classList.add('animate'), 300);
+  }
+}
 
-    // Set translateY based on progress
-    // progress = 0: content is 180px below
-    // progress = 1: content is at normal position (0px)
-    const translateY = (1 - progress) * 180;
+// Animate page 3 people image
+function animatePage3People() {
+  if (page3Animated) return;
 
-    page.style.transform = `translateY(${translateY}px)`;
+  const page3 = document.getElementById('page3');
+  if (!page3) return;
+
+  const windowHeight = window.innerHeight;
+  const page3Rect = page3.getBoundingClientRect();
+
+  // Trigger when page 3 is 30% visible from top
+  if (page3Rect.top < windowHeight * 0.3 && page3Rect.bottom > 0) {
+    page3Animated = true;
+
+    const peopleImg = document.querySelector('#page3 img');
+    peopleImg?.classList.add('animate-pop');
+  }
+}
+
+// Animate page 4 HK icon and content icons
+function animatePage4Icon() {
+  if (page4Animated) return;
+
+  const page4 = document.getElementById('page4');
+  if (!page4) return;
+
+  const windowHeight = window.innerHeight;
+  const page4Rect = page4.getBoundingClientRect();
+
+  // Trigger when page 4 is 30% visible from top
+  if (page4Rect.top < windowHeight * 0.3 && page4Rect.bottom > 0) {
+    page4Animated = true;
+
+    const hkIcon = document.querySelector('.hk-icon');
+    hkIcon?.classList.add('animate-pop');
+
+    const icon1 = document.querySelector('#page4-content div img[alt="Page 4 Icon 1"]');
+    const icon2 = document.querySelector('#page4-content div img[alt="Page 4 Icon 2"]');
+
+    setTimeout(() => icon1?.classList.add('animate'), 0);
+    setTimeout(() => icon2?.classList.add('animate'), 0);
   }
 }
 
@@ -206,8 +285,8 @@ function animateStatBox() {
     }
 
     // Animate counter
-    const duration = 2000; // 2 seconds
-    const start = 0;
+    const duration = 1000; // 2 seconds
+    const start = 4000;
     const end = 5500;
     const startTime = performance.now();
 
@@ -224,6 +303,200 @@ function animateStatBox() {
     }
 
     requestAnimationFrame(updateCounter);
+
+    // Animate hidden youth text
+    const hiddenYouthText = document.getElementById('hidden-youth-txt');
+    setTimeout(() => hiddenYouthText?.classList.add('animate'), 1000);
+  }
+}
+
+// Animate page 6 divs
+let page6Animated = false;
+
+function animatePage6Divs() {
+  if (page6Animated) return;
+
+  const page6 = document.getElementById('page6');
+  if (!page6) return;
+
+  const windowHeight = window.innerHeight;
+  const page6Rect = page6.getBoundingClientRect();
+
+  // Trigger when page 6 is 30% visible from top
+  if (page6Rect.top < windowHeight * 0.3 && page6Rect.bottom > 0) {
+    page6Animated = true;
+
+    const page6Divs = document.querySelectorAll('#page6 > div > div');
+
+    setTimeout(() => page6Divs[0]?.classList.add('animate'), 0);
+    setTimeout(() => page6Divs[1]?.classList.add('animate'), 300);
+    setTimeout(() => page6Divs[2]?.classList.add('animate'), 600);
+  }
+}
+
+// Animate page 8 images
+let page8Animated = false;
+
+function animatePage8Images() {
+  if (page8Animated) return;
+
+  const page8 = document.getElementById('page8');
+  if (!page8) return;
+
+  const windowHeight = window.innerHeight;
+  const page8Rect = page8.getBoundingClientRect();
+
+  // Trigger when page 8 is 30% visible from top
+  if (page8Rect.top < windowHeight * 0.3 && page8Rect.bottom > 0) {
+    page8Animated = true;
+
+    const page8Images = document.querySelectorAll('.page8-image img');
+    const delays = [0, 300, 600, 900, 1200]; // Sequential delays
+
+    delays.forEach((delay, i) => {
+      setTimeout(() => {
+        if (page8Images[i + 1]) {
+          page8Images[i + 1].classList.add('animate');
+        }
+      }, delay);
+    });
+  }
+}
+
+// Animate page 9 elements
+let page9Animated = false;
+
+function animatePage9Elements() {
+  if (page9Animated) return;
+
+  const page9 = document.getElementById('page9');
+  if (!page9) return;
+
+  const windowHeight = window.innerHeight;
+  const page9Rect = page9.getBoundingClientRect();
+
+  // Trigger when page 9 is 30% visible from top
+  if (page9Rect.top < windowHeight * 0.3 && page9Rect.bottom > 0) {
+    page9Animated = true;
+
+    const orbitText = document.querySelector('#page9 img[alt="Orbit Text"]');
+    const appIcon = document.querySelector('#page9 img[alt="App Icon"]');
+    const paragraphs = document.querySelectorAll('#page9 p');
+
+    setTimeout(() => orbitText?.classList.add('animate'), 0);
+    setTimeout(() => appIcon?.classList.add('animate'), 150);
+    setTimeout(() => paragraphs[0]?.classList.add('animate'), 300);
+    setTimeout(() => paragraphs[1]?.classList.add('animate'), 600);
+  }
+}
+
+// Animate page 10 phone grid
+let page10Animated = false;
+
+function animatePage10PhoneGrid() {
+  if (page10Animated) return;
+
+  const page10 = document.getElementById('page10');
+  if (!page10) return;
+
+  const windowHeight = window.innerHeight;
+  const page10Rect = page10.getBoundingClientRect();
+
+  // Trigger when page 10 is 30% visible from top
+  if (page10Rect.top < windowHeight * 0.3 && page10Rect.bottom > 0) {
+    page10Animated = true;
+
+    const phoneItems = document.querySelectorAll('.page10-phone-item');
+
+    setTimeout(() => phoneItems[0]?.classList.add('animate'), 0);
+    setTimeout(() => phoneItems[1]?.classList.add('animate'), 150);
+    setTimeout(() => phoneItems[2]?.classList.add('animate'), 300);
+    setTimeout(() => phoneItems[3]?.classList.add('animate'), 450);
+  }
+}
+
+// Animate page 11 elements
+let page11Animated = false;
+
+function animatePage11Elements() {
+  if (page11Animated) return;
+
+  const page11 = document.getElementById('page11');
+  if (!page11) return;
+
+  const windowHeight = window.innerHeight;
+  const page11Rect = page11.getBoundingClientRect();
+
+  // Trigger when page 11 is 30% visible from top
+  if (page11Rect.top < windowHeight * 0.3 && page11Rect.bottom > 0) {
+    page11Animated = true;
+
+    const lv1 = document.querySelector('.page11-lv1');
+    const lv2 = document.querySelector('.page11-lv2');
+    const lv3 = document.querySelector('.page11-lv3');
+    const lv4 = document.querySelector('.page11-lv4');
+    const lv5 = document.querySelector('.page11-lv5');
+    const lv6 = document.querySelector('.page11-lv6');
+    const arrow = document.querySelector('.page11-arrow');
+    const screen = document.querySelector('.page11-screen');
+
+    setTimeout(() => lv1?.classList.add('animate'), 0);
+    setTimeout(() => lv2?.classList.add('animate'), 300);
+    setTimeout(() => lv3?.classList.add('animate'), 600);
+    setTimeout(() => lv4?.classList.add('animate'), 900);
+    setTimeout(() => lv5?.classList.add('animate'), 1200);
+    setTimeout(() => lv6?.classList.add('animate'), 1500);
+    setTimeout(() => arrow?.classList.add('animate'), 1800);
+    setTimeout(() => screen?.classList.add('animate'), 2200);
+  }
+}
+
+// Animate page 12 images
+let page12Animated = false;
+
+function animatePage12Images() {
+  if (page12Animated) return;
+
+  const page12 = document.getElementById('page12');
+  if (!page12) return;
+
+  const windowHeight = window.innerHeight;
+  const page12Rect = page12.getBoundingClientRect();
+
+  // Trigger when page 12 is 30% visible from top
+  if (page12Rect.top < windowHeight * 0.3 && page12Rect.bottom > 0) {
+    page12Animated = true;
+
+    const images = document.querySelectorAll('.page12-image');
+
+    setTimeout(() => images[0]?.classList.add('animate'), 300);
+    setTimeout(() => images[2]?.classList.add('animate'), 1300);
+  }
+}
+
+// Animate page 13 elements
+let page13Animated = false;
+
+function animatePage13Elements() {
+  if (page13Animated) return;
+
+  const page13 = document.getElementById('page13');
+  if (!page13) return;
+
+  const windowHeight = window.innerHeight;
+  const page13Rect = page13.getBoundingClientRect();
+
+  // Trigger when page 13 is 30% visible from top
+  if (page13Rect.top < windowHeight * 0.3 && page13Rect.bottom > 0) {
+    page13Animated = true;
+
+    const progress = document.querySelector('.page13-progress');
+    const title = document.querySelector('.page13-connect-title');
+    const qrCode = document.querySelector('#page13 img[alt="QR Code"]');
+
+    setTimeout(() => progress?.classList.add('animate'), 0);
+    setTimeout(() => title?.classList.add('animate'), 300);
+    setTimeout(() => qrCode?.classList.add('animate'), 600);
   }
 }
 
@@ -278,11 +551,38 @@ function updateCircles() {
   // Update expand-line animation
   updateExpandLine();
 
-  // Update parallax animation for all pages
-  updateAllPagesParallax();
+  // Update page 2 animations
+  animatePage2Elements();
+
+  // Update page 3 animations
+  animatePage3People();
+
+  // Update page 4 animations
+  animatePage4Icon();
 
   // Update stat box animation
   animateStatBox();
+
+  // Update page 6 divs animation
+  animatePage6Divs();
+
+  // Update page 8 images animation
+  animatePage8Images();
+
+  // Update page 9 elements animation
+  animatePage9Elements();
+
+  // Update page 10 phone grid animation
+  animatePage10PhoneGrid();
+
+  // Update page 11 elements animation
+  animatePage11Elements();
+
+  // Update page 12 images animation
+  animatePage12Images();
+
+  // Update page 13 elements animation
+  animatePage13Elements();
 
   // Request next frame
   requestAnimationFrame(updateCircles);
@@ -431,6 +731,36 @@ page6Buttons.forEach((button) => {
   });
 });
 
+// Page 2 navigation buttons
+const page2InfoBtn = document.querySelector('.page2-2');
+const page2BackgroundBtn = document.querySelector('.page2-3');
+const page3 = document.getElementById('page3');
+const page9 = document.getElementById('page9');
+
+// "Click for more information" button - scrolls to page 9
+if (page2InfoBtn && page9) {
+  page2InfoBtn.addEventListener('click', () => {
+    const page9Position = page9.offsetTop;
+
+    window.scrollTo({
+      top: page9Position,
+      behavior: 'smooth',
+    });
+  });
+}
+
+// "Scroll to Read Background" button - scrolls to page 3
+if (page2BackgroundBtn && page3) {
+  page2BackgroundBtn.addEventListener('click', () => {
+    const page3Position = page3.offsetTop;
+
+    window.scrollTo({
+      top: page3Position,
+      behavior: 'smooth',
+    });
+  });
+}
+
 // Trigger box 1 animation when page 7 comes into view
 const observerOptions = {
   root: null,
@@ -560,3 +890,24 @@ function triggerBox3Animation() {
     box3Animated = true;
   }
 }
+
+// Update bullet connector line position
+function updateBulletLine() {
+  const firstBullet = document.querySelector('.page10-bullet .bullet-icon');
+  const lastBullet = document.querySelector('.page13-bullet2 .bullet-icon');
+  const line = document.querySelector('.bullet-connector-line');
+
+  if (firstBullet && lastBullet && line) {
+    const firstRect = firstBullet.getBoundingClientRect();
+    const lastRect = lastBullet.getBoundingClientRect();
+
+    const firstTop = firstRect.top + window.scrollY + firstRect.height / 2;
+    const lastTop = lastRect.top + window.scrollY + lastRect.height / 2;
+
+    line.style.top = `${firstTop}px`;
+    line.style.height = `${lastTop - firstTop}px`;
+  }
+}
+
+window.addEventListener('load', updateBulletLine);
+window.addEventListener('resize', updateBulletLine);
