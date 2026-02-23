@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 @import "tailwindcss";
@@ -14,11 +14,16 @@
   --color-glow: #868ce4;
   --color-progress-start: #ff4444;
   --color-progress-end: #ffffff;
-  
+
   /* Fonts */
   --font-heading: 'Afacad', sans-serif;
   --font-body: 'Open Sans', sans-serif;
   --font-settings: 'Inter', sans-serif;
+
+  /* Accent colors */
+  --color-accent-pink: #ff5c75;
+  --color-accent-yellow: #f5fda1;
+  --color-card-bg: #3b3c61;
 
   /* Icon colors */
   --color-icon-active: #f5fda1;
@@ -46,10 +51,14 @@
   }
 }
 
+/* ─── Shared easing curves ─── */
+/* "Smooth decel" for entrances — fast start, gentle land */
+/* cubic-bezier(0.16, 1, 0.3, 1) */
+
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -58,13 +67,13 @@
 }
 
 .animate-slideUp {
-  animation: slideUp 300ms ease-out;
+  animation: slideUp 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideLeft {
   from {
     opacity: 0;
-    transform: translateX(12px);
+    transform: translateX(16px);
   }
   to {
     opacity: 1;
@@ -73,52 +82,114 @@
 }
 
 .animate-slideLeft {
-  animation: slideLeft 300ms ease-out;
+  animation: slideLeft 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Staggered entrance animations */
+/* Staggered entrance animations — refined spring curve */
 .animate-stagger-1 {
   opacity: 0;
-  animation: slideUp 500ms ease-out forwards;
-  animation-delay: 100ms;
+  animation: slideUp 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 80ms;
 }
 
 .animate-stagger-2 {
   opacity: 0;
-  animation: slideUp 500ms ease-out forwards;
-  animation-delay: 250ms;
+  animation: slideUp 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 180ms;
 }
 
 .animate-stagger-3 {
   opacity: 0;
-  animation: slideUp 500ms ease-out forwards;
-  animation-delay: 400ms;
+  animation: slideUp 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 300ms;
 }
 
 .animate-stagger-4 {
   opacity: 0;
-  animation: slideUp 500ms ease-out forwards;
-  animation-delay: 550ms;
+  animation: slideUp 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 420ms;
 }
 
 .animate-stagger-5 {
   opacity: 0;
-  animation: slideUp 500ms ease-out forwards;
-  animation-delay: 700ms;
+  animation: slideUp 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 560ms;
 }
 
-/* Breathing glow effect */
+/* Page-level entrance — for route content */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-page-enter {
+  animation: pageEnter 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Breathing glow effect — smoother organic curve */
 @keyframes pulseGlow {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.35;
     transform: scale(1);
   }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.08);
+  40% {
+    opacity: 0.65;
+    transform: scale(1.06);
+  }
+  60% {
+    opacity: 0.6;
+    transform: scale(1.07);
   }
 }
 
 .animate-pulse-glow {
-  animation: pulseGlow 4s ease-in-out infinite;
+  animation: pulseGlow 5s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+/* ─── Overlay & sheet animations ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpSheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes searchSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulseOnce {
+  0% { box-shadow: 0 0 0 0 rgba(174, 177, 231, 0); }
+  50% { box-shadow: 0 0 20px 2px rgba(174, 177, 231, 0.15); }
+  100% { box-shadow: 0 0 0 0 rgba(174, 177, 231, 0); }
+}
+
+@keyframes shimmerLine {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(200%); }
+}
+
+/* Hide scrollbar utility */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }

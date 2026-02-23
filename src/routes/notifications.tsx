@@ -30,7 +30,7 @@ function NotificationsPage() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col">
+      <div className="relative z-10 flex flex-col animate-page-enter">
         {/* Planet Illustration */}
         <div className="flex justify-center" style={{ marginTop: "58px" }}>
           <img

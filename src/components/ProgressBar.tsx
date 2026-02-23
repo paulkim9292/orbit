@@ -13,7 +13,7 @@ export function ProgressBar({ progress }: ProgressBarProps) {
         style={{
           width: `${progress}%`,
           backgroundColor: "#ff5c75",
-          transition: "width 400ms ease",
+          transition: "width 500ms cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       />
     </div>

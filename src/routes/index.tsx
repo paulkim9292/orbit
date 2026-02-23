@@ -85,7 +85,10 @@ function LandingPage() {
         <div className="flex flex-col items-center" style={{ gap: "14px", marginBottom: "140px" }}>
           <Link
             to="/onboarding"
-            className="animate-stagger-4 flex items-center justify-center rounded-full transition-opacity duration-200 hover:opacity-90"
+            className="animate-stagger-4 flex items-center justify-center rounded-full"
+            onPointerDown={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(0.96)"; }}
+            onPointerUp={(e) => { (e.currentTarget as HTMLElement).style.transform = ""; }}
+            onPointerLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = ""; }}
             style={{
               width: "260px",
               height: "50px",
@@ -96,6 +99,7 @@ function LandingPage() {
               fontWeight: 600,
               letterSpacing: "0.5px",
               textDecoration: "none",
+              transition: "transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
             Get Started
@@ -103,7 +107,10 @@ function LandingPage() {
 
           <Link
             to="/home"
-            className="animate-stagger-5 flex items-center justify-center rounded-full border transition-colors duration-200 hover:bg-(--color-bg-overlay)"
+            className="animate-stagger-5 flex items-center justify-center rounded-full border"
+            onPointerDown={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(0.96)"; }}
+            onPointerUp={(e) => { (e.currentTarget as HTMLElement).style.transform = ""; }}
+            onPointerLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = ""; }}
             style={{
               width: "260px",
               height: "50px",
@@ -114,6 +121,7 @@ function LandingPage() {
               fontWeight: 600,
               letterSpacing: "0.5px",
               textDecoration: "none",
+              transition: "transform 300ms cubic-bezier(0.16, 1, 0.3, 1), background-color 250ms",
             }}
           >
             Browse

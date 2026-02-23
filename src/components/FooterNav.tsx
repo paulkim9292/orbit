@@ -32,7 +32,13 @@ export function FooterNav() {
           <img
             src={src}
             alt={item.name}
-            style={{ width: `${item.width}px`, height: `${item.height}px` }}
+            style={{
+              width: `${item.width}px`,
+              height: `${item.height}px`,
+              transition: "opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms cubic-bezier(0.16, 1, 0.3, 1)",
+              transform: isActive ? "scale(1)" : "scale(0.92)",
+              opacity: isActive ? 1 : 0.7,
+            }}
           />
         );
 

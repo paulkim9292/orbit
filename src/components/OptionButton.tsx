@@ -11,7 +11,7 @@ export function OptionButton({ label, selected, onClick }: OptionButtonProps) {
       className={`
         w-full rounded-full border
         flex items-center justify-center
-        text-center transition-colors duration-200
+        text-center transition-all duration-250
         ${
           selected
             ? 'border-(--color-text-primary) bg-(--color-text-primary) text-(--color-bg-primary)'

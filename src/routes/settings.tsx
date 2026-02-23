@@ -10,7 +10,7 @@ function SettingsPage() {
   const [notifications, setNotifications] = useState(true);
 
   return (
-    <div className="relative flex flex-col flex-1">
+    <div className="relative flex flex-col flex-1 animate-page-enter">
       {/* Profile Avatar Section */}
       <div className="flex justify-center" style={{ paddingTop: "60px" }}>
         <img
