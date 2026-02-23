@@ -8,11 +8,6 @@ function LandingPage() {
   return (
     <div
       className="relative min-h-screen overflow-hidden flex flex-col items-center"
-      style={{
-        backgroundColor: "var(--color-bg-primary)",
-        maxWidth: "393px",
-        margin: "0 auto",
-      }}
     >
       {/* Gradient Background Header */}
       <div className="absolute top-0 left-0 w-full" style={{ height: "340px" }}>

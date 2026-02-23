@@ -7,12 +7,7 @@ export const Route = createFileRoute("/home")({
 function HomePage() {
   return (
     <div
-      className="relative min-h-screen flex items-center justify-center"
-      style={{
-        backgroundColor: "var(--color-bg-primary)",
-        maxWidth: "393px",
-        margin: "0 auto",
-      }}
+      className="relative flex-1 flex items-center justify-center"
     >
       <p
         style={{
