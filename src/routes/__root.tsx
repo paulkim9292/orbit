@@ -3,6 +3,7 @@ import { FooterNav } from "@/components/FooterNav";
 import { Plus } from "lucide-react";
 
 const ROUTES_WITHOUT_FOOTER = ["/", "/onboarding", "/create-event"];
+const ROUTE_PREFIXES_WITHOUT_FOOTER = ["/event/", "/chat/", "/review/"];
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -12,7 +13,9 @@ function RootLayout() {
   const routerState = useRouterState();
   const navigate = useNavigate();
   const currentPath = routerState.location.pathname;
-  const showFooter = !ROUTES_WITHOUT_FOOTER.includes(currentPath);
+  const showFooter =
+    !ROUTES_WITHOUT_FOOTER.includes(currentPath) &&
+    !ROUTE_PREFIXES_WITHOUT_FOOTER.some((p) => currentPath.startsWith(p));
 
   return (
     <>

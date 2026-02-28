@@ -16,6 +16,9 @@ import { Route as MyRouteImport } from './routes/my'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as CreateEventRouteImport } from './routes/create-event'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReviewEventIdRouteImport } from './routes/review.$eventId'
+import { Route as EventEventIdRouteImport } from './routes/event.$eventId'
+import { Route as ChatEventIdRouteImport } from './routes/chat.$eventId'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -52,6 +55,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReviewEventIdRoute = ReviewEventIdRouteImport.update({
+  id: '/review/$eventId',
+  path: '/review/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventEventIdRoute = EventEventIdRouteImport.update({
+  id: '/event/$eventId',
+  path: '/event/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatEventIdRoute = ChatEventIdRouteImport.update({
+  id: '/chat/$eventId',
+  path: '/chat/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +79,9 @@ export interface FileRoutesByFullPath {
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/settings': typeof SettingsRoute
+  '/chat/$eventId': typeof ChatEventIdRoute
+  '/event/$eventId': typeof EventEventIdRoute
+  '/review/$eventId': typeof ReviewEventIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +91,9 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/settings': typeof SettingsRoute
+  '/chat/$eventId': typeof ChatEventIdRoute
+  '/event/$eventId': typeof EventEventIdRoute
+  '/review/$eventId': typeof ReviewEventIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +104,9 @@ export interface FileRoutesById {
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/settings': typeof SettingsRoute
+  '/chat/$eventId': typeof ChatEventIdRoute
+  '/event/$eventId': typeof EventEventIdRoute
+  '/review/$eventId': typeof ReviewEventIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +118,9 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/onboarding'
     | '/settings'
+    | '/chat/$eventId'
+    | '/event/$eventId'
+    | '/review/$eventId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +130,9 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/onboarding'
     | '/settings'
+    | '/chat/$eventId'
+    | '/event/$eventId'
+    | '/review/$eventId'
   id:
     | '__root__'
     | '/'
@@ -109,6 +142,9 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/onboarding'
     | '/settings'
+    | '/chat/$eventId'
+    | '/event/$eventId'
+    | '/review/$eventId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +155,9 @@ export interface RootRouteChildren {
   NotificationsRoute: typeof NotificationsRoute
   OnboardingRoute: typeof OnboardingRoute
   SettingsRoute: typeof SettingsRoute
+  ChatEventIdRoute: typeof ChatEventIdRoute
+  EventEventIdRoute: typeof EventEventIdRoute
+  ReviewEventIdRoute: typeof ReviewEventIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +211,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/review/$eventId': {
+      id: '/review/$eventId'
+      path: '/review/$eventId'
+      fullPath: '/review/$eventId'
+      preLoaderRoute: typeof ReviewEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/event/$eventId': {
+      id: '/event/$eventId'
+      path: '/event/$eventId'
+      fullPath: '/event/$eventId'
+      preLoaderRoute: typeof EventEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/$eventId': {
+      id: '/chat/$eventId'
+      path: '/chat/$eventId'
+      fullPath: '/chat/$eventId'
+      preLoaderRoute: typeof ChatEventIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +243,9 @@ const rootRouteChildren: RootRouteChildren = {
   NotificationsRoute: NotificationsRoute,
   OnboardingRoute: OnboardingRoute,
   SettingsRoute: SettingsRoute,
+  ChatEventIdRoute: ChatEventIdRoute,
+  EventEventIdRoute: EventEventIdRoute,
+  ReviewEventIdRoute: ReviewEventIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
