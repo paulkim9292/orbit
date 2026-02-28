@@ -18,14 +18,15 @@ export function ShimmerImage({
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <>
+    <div
+      className={className}
+      style={{ ...style, position: "relative", overflow: "hidden" }}
+    >
       {!loaded && (
         <div
-          className={className}
           style={{
-            ...style,
-            position: "relative",
-            overflow: "hidden",
+            position: "absolute",
+            inset: 0,
             backgroundColor: "var(--color-card-bg)",
           }}
         >
@@ -43,9 +44,10 @@ export function ShimmerImage({
       <img
         src={src}
         alt={alt}
-        className={className}
         style={{
-          ...style,
+          width: "100%",
+          height: "100%",
+          objectFit: style?.objectFit,
           opacity: loaded ? 1 : 0,
           transition: "opacity 300ms ease-out",
         }}
@@ -54,6 +56,6 @@ export function ShimmerImage({
           onLoad?.();
         }}
       />
-    </>
+    </div>
   );
 }
