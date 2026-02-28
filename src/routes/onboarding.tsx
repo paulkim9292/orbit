@@ -161,10 +161,7 @@ const questions: QuestionDef[] = [
 
 type SocialLevel = "cosmic-dust" | "comet" | "moon";
 
-const SOCIAL_LEVEL_CONFIG: Record<
-  SocialLevel,
-  { label: string; image: string }
-> = {
+const SOCIAL_LEVEL_CONFIG: Record<SocialLevel, { label: string; image: string }> = {
   "cosmic-dust": { label: "Cosmic Dust", image: "/images/cosmic-dust.png" },
   comet: { label: "Comet", image: "/images/comet.png" },
   moon: { label: "Moon", image: "/images/moon.png" },
@@ -274,7 +271,10 @@ function OnboardingPage() {
         />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center px-[42px] pb-8" style={{ minHeight: "100vh" }}>
+        <div
+          className="relative z-10 flex flex-col items-center px-[42px] pb-8"
+          style={{ minHeight: "100vh" }}
+        >
           {/* Planet Illustration */}
           <div className="flex justify-center" style={{ marginTop: "58px" }}>
             <img
@@ -359,9 +359,7 @@ function OnboardingPage() {
   }
 
   return (
-    <div
-      className="relative min-h-screen overflow-hidden"
-    >
+    <div className="relative min-h-screen overflow-hidden">
       {/* Gradient Background Header */}
       <div className="absolute top-0 left-0 w-full" style={{ height: "290px" }}>
         <img src="/gradient-background.svg" alt="" className="w-full h-full object-cover" />
@@ -488,30 +486,29 @@ function OnboardingPage() {
         </div>
 
         {/* Navigation — pushed to bottom */}
-        <div style={{ flexGrow: 1, minHeight: '24px' }} />
+        <div style={{ flexGrow: 1, minHeight: "14px" }} />
         <div
           style={{
-            position: 'sticky',
+            position: "sticky",
             bottom: 0,
-            backgroundColor: 'var(--color-bg-primary)',
-            paddingTop: '12px',
-            paddingBottom: '24px',
-            marginLeft: '-42px',
-            marginRight: '-42px',
-            paddingLeft: '42px',
-            paddingRight: '42px',
+            backgroundColor: "var(--color-bg-primary)",
+            paddingBottom: "24px",
+            marginLeft: "-42px",
+            marginRight: "-42px",
+            paddingLeft: "42px",
+            paddingRight: "42px",
           }}
         >
           {/* Fade edge */}
           <div
             style={{
-              position: 'absolute',
-              top: '-20px',
+              position: "absolute",
+              top: "-20px",
               left: 0,
               right: 0,
-              height: '20px',
-              background: 'linear-gradient(to bottom, transparent, var(--color-bg-primary))',
-              pointerEvents: 'none',
+              height: "20px",
+              background: "linear-gradient(to bottom, transparent, var(--color-bg-primary))",
+              pointerEvents: "none",
             }}
           />
           <div
