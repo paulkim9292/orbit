@@ -100,13 +100,78 @@ export function getImageForSubcategory(subcategory: string): string {
   return section ? (SECTION_IMAGES[section] ?? "/images/home-card-others.svg") : "/images/home-card-others.svg";
 }
 
-export async function fetchActivities(): Promise<Activity[]> {
+export interface EventDetail {
+  id: string;
+  title: string;
+  image: string;
+  eventDate: string;
+  uploadDate: string;
+  district: string;
+  people: number;
+  views: number;
+  rewards: number | null;
+  featured: boolean;
+  category: string | null;
+  subcategory: string | null;
+  gender: string | null;
+  ageFrom: number | null;
+  ageTo: number | null;
+  timeFrom: string | null;
+  timeTo: string | null;
+  location: string | null;
+  maxPeople: number | null;
+  description: string | null;
+}
+
+export async function fetchEventById(id: string): Promise<EventDetail> {
   const { data, error } = await supabase
     .from("events")
     .select(
-      "id, image, title, event_date, upload_date, district, people, rewards, featured",
+      "id, title, image, event_date, upload_date, district, people, views, rewards, featured, category, subcategory, gender, age_from, age_to, time_from, time_to, location, max_people, description",
     )
-    .order("event_date", { ascending: true });
+    .eq("id", id)
+    .single();
+
+  if (error) throw error;
+
+  return {
+    id: data.id,
+    title: data.title,
+    image: data.image,
+    eventDate: data.event_date,
+    uploadDate: data.upload_date,
+    district: data.district,
+    people: data.people,
+    views: data.views,
+    rewards: data.rewards,
+    featured: data.featured,
+    category: data.category,
+    subcategory: data.subcategory,
+    gender: data.gender,
+    ageFrom: data.age_from,
+    ageTo: data.age_to,
+    timeFrom: data.time_from,
+    timeTo: data.time_to,
+    location: data.location,
+    maxPeople: data.max_people,
+    description: data.description,
+  };
+}
+
+export async function fetchActivities(
+  options: { includePast?: boolean } = {},
+): Promise<Activity[]> {
+  let query = supabase
+    .from("events")
+    .select(
+      "id, image, title, event_date, upload_date, district, people, views, rewards, featured",
+    );
+
+  if (!options.includePast) {
+    query = query.gte("event_date", new Date().toISOString());
+  }
+
+  const { data, error } = await query.order("event_date", { ascending: true });
 
   if (error) throw error;
 
@@ -118,6 +183,7 @@ export async function fetchActivities(): Promise<Activity[]> {
     uploadDate: row.upload_date,
     district: row.district,
     people: row.people,
+    views: row.views,
     rewards: row.rewards ?? undefined,
     featured: row.featured,
   }));

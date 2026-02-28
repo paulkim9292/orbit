@@ -23,13 +23,14 @@ export interface Activity {
   uploadDate: string;
   district: string;
   people: number;
+  views: number;
   rewards?: number;
   featured: boolean;
 }
 
 /* ─── Helpers ─── */
 
-type SortMode = "upcoming" | "nearby" | "points";
+type SortMode = "upcoming" | "nearby" | "views";
 
 export function formatEventDate(iso: string): string {
   const d = new Date(iso);
@@ -65,8 +66,8 @@ function sortActivities(
         (a, b) =>
           new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime(),
       );
-    case "points":
-      return copy.sort((a, b) => (b.rewards ?? 0) - (a.rewards ?? 0));
+    case "views":
+      return copy.sort((a, b) => b.views - a.views);
     case "nearby":
       if (selectedRegion === "All Region") {
         return copy.sort((a, b) => a.district.localeCompare(b.district));
@@ -286,9 +287,9 @@ function HomePage() {
             onClick={() => setActiveSort("nearby")}
           />
           <FilterChip
-            label="Points"
-            active={activeSort === "points"}
-            onClick={() => setActiveSort("points")}
+            label="Views"
+            active={activeSort === "views"}
+            onClick={() => setActiveSort("views")}
           />
         </div>
 
@@ -330,6 +331,7 @@ function HomePage() {
           {featuredActivities.map((a) => (
             <div key={a.id} className="shrink-0" style={{ width: "160px" }}>
               <ActivityCard
+                eventId={a.id}
                 image={a.image}
                 title={a.title}
                 height="180px"
@@ -376,6 +378,7 @@ function HomePage() {
             : filteredAndSorted.map((a) => (
                 <ActivityCard
                   key={a.id}
+                  eventId={a.id}
                   image={a.image}
                   title={a.title}
                   height="155px"

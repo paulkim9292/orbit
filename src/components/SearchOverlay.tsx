@@ -198,6 +198,7 @@ export function SearchOverlay({ isOpen, onClose, activities }: SearchOverlayProp
                   }}
                 >
                   <ActivityCard
+                    eventId={a.id}
                     image={a.image}
                     title={a.title}
                     height="155px"

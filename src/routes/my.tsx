@@ -5,7 +5,7 @@ import { formatEventDate, type Activity } from "./home";
 import { fetchActivities } from "@/lib/events";
 
 export const Route = createFileRoute("/my")({
-  loader: () => fetchActivities(),
+  loader: () => fetchActivities({ includePast: true }),
   component: MyPage,
 });
 
@@ -221,6 +221,7 @@ function MyPage() {
                 }}
               >
                 <ActivityCard
+                  eventId={event.id}
                   image={event.image}
                   title={event.title}
                   height="140px"

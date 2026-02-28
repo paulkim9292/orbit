@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 interface ActivityCardProps {
   image: string;
   title: string;
   details: ReactNode;
   height?: string;
+  eventId?: string;
 }
 
 export function ActivityCard({
@@ -12,7 +14,10 @@ export function ActivityCard({
   title,
   details,
   height = "180px",
+  eventId,
 }: ActivityCardProps) {
+  const navigate = useNavigate();
+
   return (
     <div
       className="relative overflow-hidden w-full"
@@ -24,6 +29,9 @@ export function ActivityCard({
         cursor: "pointer",
         transition:
           "transform 350ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 350ms cubic-bezier(0.16, 1, 0.3, 1)",
+      }}
+      onClick={() => {
+        if (eventId) navigate({ to: "/event/$eventId", params: { eventId } });
       }}
       onPointerDown={(e) => {
         const el = e.currentTarget as HTMLElement;
