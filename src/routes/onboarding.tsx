@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { ProgressBar } from "@/components/ProgressBar";
 import { QuestionHeader } from "@/components/QuestionHeader";
 import { OptionButton } from "@/components/OptionButton";
@@ -83,40 +83,26 @@ const questions: QuestionDef[] = [
   },
   {
     number: "Q5.",
-    text: "How do you operate your social energy?",
-    category: "Personal Energy",
-    progress: 44,
-    layout: "list",
-    options: [
-      "I recharge in my own personal quiet space",
-      "I hang out with 1-3 group of people",
-      "I adapt to the situation",
-      "I frequently hang out with friends",
-      "I love meeting new people",
-    ],
-  },
-  {
-    number: "Q6.",
     text: "How often do you participate in group activities (e.g. sports, volunteering, clubs)?",
     category: "Availability",
-    progress: 54,
+    progress: 44,
     layout: "list",
     options: ["Never", "Monthly", "Weekly", "Multiple times a week"],
   },
   {
-    number: "Q7.",
+    number: "Q6.",
     text: "I prefer texting over face-to-face conversations",
     category: "Availability",
-    progress: 63,
+    progress: 55,
     layout: "list",
     options: ["Never", "Sometimes", "Often times", "Multiple times a week"],
   },
   {
-    number: "Q8.",
+    number: "Q7.",
     text: "Through Orbit, I want to:",
     subtitle: "(select up to 3)",
     category: "Goals & Motivation",
-    progress: 73,
+    progress: 66,
     layout: "list",
     options: [
       "Make new friends",
@@ -127,10 +113,10 @@ const questions: QuestionDef[] = [
     ],
   },
   {
-    number: "Q9.",
+    number: "Q8.",
     text: "Which area are you interested in?",
     category: "Vibe & Preferences",
-    progress: 83,
+    progress: 77,
     layout: "grid3",
     options: [
       "Light/Recovery Activities",
@@ -148,11 +134,11 @@ const questions: QuestionDef[] = [
     ],
   },
   {
-    number: "Q10.",
+    number: "Q9.",
     text: "What kind of event vibe do you prefer?",
     subtitle: "(Select up to 3)",
     category: "Vibe & Preferences",
-    progress: 93,
+    progress: 88,
     layout: "list",
     options: [
       "Chill & Relaxed",
@@ -163,7 +149,7 @@ const questions: QuestionDef[] = [
     ],
   },
   {
-    number: "Q11.",
+    number: "Q10.",
     text: "What are the one/two most important aspects when joining an event?",
     category: "Vibe & Preferences",
     progress: 98,
@@ -172,14 +158,72 @@ const questions: QuestionDef[] = [
   },
 ];
 
+type SocialLevel = "cosmic-dust" | "meteor" | "moon";
+
+const SOCIAL_LEVEL_CONFIG: Record<
+  SocialLevel,
+  { label: string; image: string }
+> = {
+  "cosmic-dust": { label: "Cosmic Dust", image: "/images/cosmic-dust.png" },
+  meteor: { label: "Meteor", image: "/images/meteor.png" },
+  moon: { label: "Moon", image: "/images/moon.png" },
+};
+
+// Based on SOCIAL_ENERGY_MAP from docs/onboarding-weight.md
+const Q4_SCORE: Record<string, number> = {
+  "I recharge in my own personal quiet space": 1,
+  "I hang out with 1-3 group of people": 2,
+  "I adapt to the situation": 3,
+  "I frequently hang out with friends": 4,
+  "I love meeting new people": 5,
+};
+
+const Q5_SCORE: Record<string, number> = {
+  Never: 1,
+  Monthly: 2.33,
+  Weekly: 3.67,
+  "Multiple times a week": 5,
+};
+
+// Inverted: preferring texting = less social
+const Q6_SCORE: Record<string, number> = {
+  Never: 5,
+  Sometimes: 3.67,
+  "Often times": 2.33,
+  "Multiple times a week": 1,
+};
+
+function computeSocialLevel(answers: Record<number, string>): SocialLevel {
+  const q4 = Q4_SCORE[answers[3]] ?? 3;
+  const q5 = Q5_SCORE[answers[4]] ?? 3;
+  const q6 = Q6_SCORE[answers[5]] ?? 3;
+  const score = (q4 + q5 + q6) / 3;
+
+  if (score < 2.34) return "cosmic-dust";
+  if (score < 3.67) return "meteor";
+  return "moon";
+}
+
 function OnboardingPage() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [showResult, setShowResult] = useState(false);
 
-  const question = questions[currentStep];
+  // Safety net: if currentStep goes out of bounds (e.g. HMR state), show result
+  useEffect(() => {
+    if (currentStep >= questions.length) {
+      setShowResult(true);
+    }
+  }, [currentStep]);
+
+  const clampedStep = Math.min(currentStep, questions.length - 1);
+  const question = questions[clampedStep];
 
   const goNext = () => {
-    if (currentStep < questions.length - 1) {
+    if (currentStep === questions.length - 1) {
+      setShowResult(true);
+    } else {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -191,13 +235,127 @@ function OnboardingPage() {
   };
 
   const handleSelect = (option: string) => {
-    setAnswers((prev) => ({ ...prev, [currentStep]: option }));
+    const updated = { ...answers, [currentStep]: option };
+    setAnswers(updated);
     setTimeout(() => {
-      setCurrentStep((prev) => (prev < questions.length - 1 ? prev + 1 : prev));
+      if (currentStep === questions.length - 1) {
+        setShowResult(true);
+      } else {
+        setCurrentStep((prev) => prev + 1);
+      }
     }, 300);
   };
 
   const isSelected = (option: string) => answers[currentStep] === option;
+
+  if (showResult) {
+    const level = computeSocialLevel(answers);
+    const { label, image } = SOCIAL_LEVEL_CONFIG[level];
+
+    return (
+      <div className="relative min-h-screen overflow-hidden">
+        {/* Gradient Background Header */}
+        <div className="absolute top-0 left-0 w-full" style={{ height: "290px" }}>
+          <img src="/gradient-background.svg" alt="" className="w-full h-full object-cover" />
+        </div>
+
+        {/* Blue Ellipse Background */}
+        <div
+          className="absolute"
+          style={{
+            width: "843px",
+            height: "733px",
+            left: "-235px",
+            top: "158px",
+            borderRadius: "50%",
+            backgroundColor: "var(--color-bg-primary)",
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center px-[42px] pb-8" style={{ minHeight: "100vh" }}>
+          {/* Planet Illustration */}
+          <div className="flex justify-center" style={{ marginTop: "58px" }}>
+            <img
+              src="/planet-heart.svg"
+              alt="Planet with heart"
+              style={{ width: "150px", height: "88px" }}
+            />
+          </div>
+
+          {/* Result Block */}
+          <div className="flex flex-col items-center" style={{ marginTop: "100px" }}>
+            {/* "You are all set!" Title */}
+            <h1
+              className="text-center animate-stagger-1"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: "40px",
+                fontWeight: 700,
+                fontStyle: "italic",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              You are all set!
+            </h1>
+
+            {/* Level Illustration */}
+            <div className="flex justify-center animate-stagger-2" style={{ marginTop: "24px" }}>
+              <img
+                src={image}
+                alt={label}
+                style={{ width: "200px", height: "200px", objectFit: "contain" }}
+              />
+            </div>
+
+            {/* Divider Line */}
+            <div
+              className="animate-stagger-3"
+              style={{
+                width: "241px",
+                height: "1px",
+                backgroundColor: "var(--color-text-primary)",
+                marginTop: "8px",
+              }}
+            />
+
+            {/* Level Name */}
+            <p
+              className="text-center animate-stagger-3"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: "30px",
+                fontStyle: "italic",
+                color: "var(--color-text-primary)",
+                marginTop: "6px",
+              }}
+            >
+              {label}
+            </p>
+
+            {/* Get Started Button */}
+            <button
+              onClick={() => navigate({ to: "/home" })}
+              className="animate-stagger-4 cursor-pointer"
+              style={{
+                width: "309px",
+                height: "43px",
+                borderRadius: "100px",
+                border: "1px solid var(--color-text-primary)",
+                backgroundColor: "transparent",
+                color: "var(--color-text-primary)",
+                fontFamily: "var(--font-heading)",
+                fontSize: "16px",
+                marginTop: "56px",
+              }}
+            >
+              Get Started!
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
