@@ -381,7 +381,7 @@ function OnboardingPage() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col px-[42px] pb-8" style={{ minHeight: "100vh" }}>
+      <div className="relative z-10 flex flex-col px-[42px]" style={{ minHeight: "100vh" }}>
         {/* Planet Illustration */}
         <div className="flex justify-center" style={{ marginTop: "58px" }}>
           <img
@@ -488,44 +488,69 @@ function OnboardingPage() {
         </div>
 
         {/* Navigation — pushed to bottom */}
-        <div style={{ flexGrow: 1 }} />
+        <div style={{ flexGrow: 1, minHeight: '24px' }} />
         <div
-          className="flex items-center"
           style={{
-            justifyContent: currentStep === 0 ? "center" : "space-between",
-            width: "214px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            paddingBottom: "16px",
+            position: 'sticky',
+            bottom: 0,
+            backgroundColor: 'var(--color-bg-primary)',
+            paddingTop: '12px',
+            paddingBottom: '24px',
+            marginLeft: '-42px',
+            marginRight: '-42px',
+            paddingLeft: '42px',
+            paddingRight: '42px',
           }}
         >
-          {currentStep > 0 && (
+          {/* Fade edge */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '-20px',
+              left: 0,
+              right: 0,
+              height: '20px',
+              background: 'linear-gradient(to bottom, transparent, var(--color-bg-primary))',
+              pointerEvents: 'none',
+            }}
+          />
+          <div
+            className="flex items-center"
+            style={{
+              justifyContent: currentStep === 0 ? "center" : "space-between",
+              width: "214px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            {currentStep > 0 && (
+              <button
+                onClick={goBack}
+                className="rounded-full flex items-center justify-center"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  borderColor: "var(--color-text-primary)",
+                  backgroundColor: "transparent",
+                }}
+                aria-label="Previous"
+              >
+                <img src="/icons/arrow-left.svg" alt="" style={{ width: "30px", height: "30px" }} />
+              </button>
+            )}
             <button
-              onClick={goBack}
+              onClick={goNext}
               className="rounded-full flex items-center justify-center"
               style={{
                 width: "30px",
                 height: "30px",
-                borderColor: "var(--color-text-primary)",
-                backgroundColor: "transparent",
+                backgroundColor: "var(--color-text-primary)",
               }}
-              aria-label="Previous"
+              aria-label="Next"
             >
-              <img src="/icons/arrow-left.svg" alt="" style={{ width: "30px", height: "30px" }} />
+              <img src="/icons/arrow-right.svg" alt="" style={{ width: "30px", height: "30px" }} />
             </button>
-          )}
-          <button
-            onClick={goNext}
-            className="rounded-full flex items-center justify-center"
-            style={{
-              width: "30px",
-              height: "30px",
-              backgroundColor: "var(--color-text-primary)",
-            }}
-            aria-label="Next"
-          >
-            <img src="/icons/arrow-right.svg" alt="" style={{ width: "30px", height: "30px" }} />
-          </button>
+          </div>
         </div>
       </div>
     </div>
