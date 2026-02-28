@@ -158,14 +158,14 @@ const questions: QuestionDef[] = [
   },
 ];
 
-type SocialLevel = "cosmic-dust" | "meteor" | "moon";
+type SocialLevel = "cosmic-dust" | "comet" | "moon";
 
 const SOCIAL_LEVEL_CONFIG: Record<
   SocialLevel,
   { label: string; image: string }
 > = {
   "cosmic-dust": { label: "Cosmic Dust", image: "/images/cosmic-dust.png" },
-  meteor: { label: "Meteor", image: "/images/meteor.png" },
+  comet: { label: "Comet", image: "/images/comet.png" },
   moon: { label: "Moon", image: "/images/moon.png" },
 };
 
@@ -200,7 +200,7 @@ function computeSocialLevel(answers: Record<number, string>): SocialLevel {
   const score = (q4 + q5 + q6) / 3;
 
   if (score < 2.34) return "cosmic-dust";
-  if (score < 3.67) return "meteor";
+  if (score < 3.67) return "comet";
   return "moon";
 }
 
