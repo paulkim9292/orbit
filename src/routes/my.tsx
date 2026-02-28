@@ -2,119 +2,12 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ActivityCard } from "@/components/ActivityCard";
 import { formatEventDate, type Activity } from "./home";
+import { fetchActivities } from "@/lib/events";
 
 export const Route = createFileRoute("/my")({
+  loader: () => fetchActivities(),
   component: MyPage,
 });
-
-/* ─── Mock joined events (subset of activities the user "joined") ─── */
-
-const joinedEvents: (Activity & { status: "upcoming" | "past" })[] = [
-  {
-    id: "j1",
-    image: "/images/home-card-hiking.jpg",
-    title: "Dragon's Back Hiking",
-    eventDate: "2025-02-28T09:00:00",
-    uploadDate: "2025-01-05T10:00:00",
-    district: "Southern",
-    people: 12,
-    views: 342,
-    rewards: 300,
-    featured: false,
-    status: "upcoming",
-  },
-  {
-    id: "j2",
-    image: "/images/home-card-yoga.jpg",
-    title: "Sunset Yoga at Repulse Bay",
-    eventDate: "2025-03-02T17:30:00",
-    uploadDate: "2025-01-06T11:00:00",
-    district: "Southern",
-    people: 8,
-    views: 621,
-    rewards: 400,
-    featured: false,
-    status: "upcoming",
-  },
-  {
-    id: "j3",
-    image: "/images/home-card-hackathon.jpg",
-    title: "Hackathon: Build for Good",
-    eventDate: "2025-03-08T09:00:00",
-    uploadDate: "2025-01-06T14:00:00",
-    district: "Sha Tin",
-    people: 20,
-    views: 754,
-    rewards: 800,
-    featured: false,
-    status: "upcoming",
-  },
-  {
-    id: "j4",
-    image: "/images/home-card-jazz.jpg",
-    title: "Jazz Night at Fringe Club",
-    eventDate: "2025-01-11T20:00:00",
-    uploadDate: "2025-01-04T18:00:00",
-    district: "Central & Western",
-    people: 12,
-    views: 489,
-    rewards: 500,
-    featured: false,
-    status: "past",
-  },
-  {
-    id: "j5",
-    image: "/images/home-card-pottery.jpg",
-    title: "Pottery Workshop at PMQ",
-    eventDate: "2025-01-12T14:00:00",
-    uploadDate: "2025-01-05T20:00:00",
-    district: "Central & Western",
-    people: 6,
-    views: 312,
-    rewards: 400,
-    featured: false,
-    status: "past",
-  },
-  {
-    id: "j6",
-    image: "/images/home-card-cleanup.jpg",
-    title: "Beach Clean-up at Shek O",
-    eventDate: "2025-01-13T08:00:00",
-    uploadDate: "2025-01-07T08:00:00",
-    district: "Southern",
-    people: 25,
-    views: 530,
-    rewards: 1200,
-    featured: false,
-    status: "past",
-  },
-  {
-    id: "j7",
-    image: "/images/home-card-bookclub.jpg",
-    title: "Kowloon City Book Club",
-    eventDate: "2024-12-20T19:30:00",
-    uploadDate: "2024-12-15T09:00:00",
-    district: "Kowloon City",
-    people: 6,
-    views: 175,
-    rewards: 350,
-    featured: false,
-    status: "past",
-  },
-  {
-    id: "j8",
-    image: "/images/home-card-language.jpg",
-    title: "Language Exchange Café",
-    eventDate: "2024-12-28T15:00:00",
-    uploadDate: "2024-12-22T13:00:00",
-    district: "Wan Chai",
-    people: 12,
-    views: 318,
-    rewards: 600,
-    featured: false,
-    status: "past",
-  },
-];
 
 /* ─── Detail renderer ─── */
 
@@ -180,16 +73,25 @@ function EmptyState({ message }: { message: string }) {
 type Tab = "upcoming" | "past";
 
 function MyPage() {
+  const activities = Route.useLoaderData();
   const [activeTab, setActiveTab] = useState<Tab>("upcoming");
 
-  const upcomingEvents = joinedEvents
+  const now = new Date();
+  const withStatus = activities.map((a) => ({
+    ...a,
+    status: (new Date(a.eventDate) > now ? "upcoming" : "past") as
+      | "upcoming"
+      | "past",
+  }));
+
+  const upcomingEvents = withStatus
     .filter((e) => e.status === "upcoming")
     .sort(
       (a, b) =>
         new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime(),
     );
 
-  const pastEvents = joinedEvents
+  const pastEvents = withStatus
     .filter((e) => e.status === "past")
     .sort(
       (a, b) =>

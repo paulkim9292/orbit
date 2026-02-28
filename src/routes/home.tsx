@@ -6,8 +6,10 @@ import { FilterChip } from "@/components/FilterChip";
 import { ActivityCard } from "@/components/ActivityCard";
 import { SearchOverlay } from "@/components/SearchOverlay";
 import { RegionSheet } from "@/components/RegionSheet";
+import { fetchActivities } from "@/lib/events";
 
 export const Route = createFileRoute("/home")({
+  loader: () => fetchActivities(),
   component: HomePage,
 });
 
@@ -21,238 +23,13 @@ export interface Activity {
   uploadDate: string;
   district: string;
   people: number;
-  views: number;
   rewards?: number;
   featured: boolean;
 }
 
-const activities: Activity[] = [
-  /* ── Physical Activities ── */
-  {
-    id: "1",
-    image: "/images/home-card-hiking.jpg",
-    title: "Dragon's Back Hiking",
-    eventDate: "2025-01-10T19:00:00",
-    uploadDate: "2025-01-05T10:00:00",
-    district: "Southern",
-    people: 2,
-    views: 342,
-    rewards: 300,
-    featured: true,
-  },
-  {
-    id: "2",
-    image: "/images/home-card-hiking.jpg",
-    title: "Kayaking to Sharp Island",
-    eventDate: "2025-01-11T18:00:00",
-    uploadDate: "2025-01-04T14:30:00",
-    district: "Sai Kung",
-    people: 4,
-    views: 518,
-    rewards: 1000,
-    featured: false,
-  },
-  {
-    id: "3",
-    image: "/images/home-card-yoga.jpg",
-    title: "Sunset Yoga at Repulse Bay",
-    eventDate: "2025-01-12T17:30:00",
-    uploadDate: "2025-01-06T11:00:00",
-    district: "Southern",
-    people: 8,
-    views: 621,
-    rewards: 400,
-    featured: false,
-  },
-  {
-    id: "4",
-    image: "/images/home-card-racket.jpg",
-    title: "Anyone down for Running?",
-    eventDate: "2025-01-10T13:00:00",
-    uploadDate: "2025-01-07T20:15:00",
-    district: "Kwun Tong",
-    people: 10,
-    views: 83,
-    rewards: 250,
-    featured: false,
-  },
-  {
-    id: "5",
-    image: "/images/home-card-yoga.jpg",
-    title: "Morning Tai Chi at Victoria Park",
-    eventDate: "2025-01-09T07:00:00",
-    uploadDate: "2025-01-03T15:00:00",
-    district: "Wan Chai",
-    people: 15,
-    views: 204,
-    rewards: 500,
-    featured: false,
-  },
-  /* ── Intellectual & Cultural Activities ── */
-  {
-    id: "6",
-    image: "/images/home-card-bookclub.jpg",
-    title: "Kowloon City Book Club",
-    eventDate: "2025-01-13T19:30:00",
-    uploadDate: "2025-01-06T09:00:00",
-    district: "Kowloon City",
-    people: 6,
-    views: 175,
-    rewards: 350,
-    featured: false,
-  },
-  {
-    id: "7",
-    image: "/images/home-card-jazz.jpg",
-    title: "Jazz Night at Fringe Club",
-    eventDate: "2025-01-11T20:00:00",
-    uploadDate: "2025-01-04T18:00:00",
-    district: "Central & Western",
-    people: 12,
-    views: 489,
-    rewards: 500,
-    featured: true,
-  },
-  {
-    id: "8",
-    image: "/images/home-card-jazz.jpg",
-    title: "Architecture Walk: Central Heritage",
-    eventDate: "2025-01-14T10:00:00",
-    uploadDate: "2025-01-07T12:00:00",
-    district: "Central & Western",
-    people: 8,
-    views: 231,
-    rewards: 300,
-    featured: false,
-  },
-  /* ── Creative & Skill-based Activities ── */
-  {
-    id: "9",
-    image: "/images/home-card-pottery.jpg",
-    title: "Pottery Workshop at PMQ",
-    eventDate: "2025-01-12T14:00:00",
-    uploadDate: "2025-01-05T20:00:00",
-    district: "Central & Western",
-    people: 6,
-    views: 312,
-    rewards: 400,
-    featured: false,
-  },
-  {
-    id: "10",
-    image: "/images/home-card-hackathon.jpg",
-    title: "Hackathon: Build for Good",
-    eventDate: "2025-01-18T09:00:00",
-    uploadDate: "2025-01-06T14:00:00",
-    district: "Sha Tin",
-    people: 20,
-    views: 754,
-    rewards: 800,
-    featured: false,
-  },
-  {
-    id: "11",
-    image: "/images/home-card-pottery.jpg",
-    title: "Photography Walk: Neon Signs",
-    eventDate: "2025-01-11T19:00:00",
-    uploadDate: "2025-01-07T16:30:00",
-    district: "Yau Tsim Mong",
-    people: 5,
-    views: 267,
-    rewards: 200,
-    featured: true,
-  },
-  {
-    id: "12",
-    image: "/images/home-card-pottery.jpg",
-    title: "Cooking Class: Dim Sum 101",
-    eventDate: "2025-01-15T11:00:00",
-    uploadDate: "2025-01-08T10:00:00",
-    district: "Wan Chai",
-    people: 8,
-    views: 398,
-    rewards: 450,
-    featured: false,
-  },
-  {
-    id: "13",
-    image: "/images/home-card-pottery.jpg",
-    title: "Open Mic & Jam Session",
-    eventDate: "2025-01-16T20:00:00",
-    uploadDate: "2025-01-09T11:00:00",
-    district: "Yau Tsim Mong",
-    people: 15,
-    views: 445,
-    rewards: 500,
-    featured: false,
-  },
-  /* ── Social & Purpose-driven Activities ── */
-  {
-    id: "14",
-    image: "/images/home-card-language.jpg",
-    title: "Board Games Night",
-    eventDate: "2025-01-10T18:30:00",
-    uploadDate: "2025-01-06T19:00:00",
-    district: "Yau Tsim Mong",
-    people: 10,
-    views: 192,
-    rewards: 350,
-    featured: false,
-  },
-  {
-    id: "15",
-    image: "/images/home-card-cleanup.jpg",
-    title: "Beach Clean-up at Shek O",
-    eventDate: "2025-01-13T08:00:00",
-    uploadDate: "2025-01-07T08:00:00",
-    district: "Southern",
-    people: 25,
-    views: 530,
-    rewards: 1200,
-    featured: true,
-  },
-  {
-    id: "16",
-    image: "/images/home-card-language.jpg",
-    title: "Language Exchange Café",
-    eventDate: "2025-01-12T15:00:00",
-    uploadDate: "2025-01-05T13:00:00",
-    district: "Wan Chai",
-    people: 12,
-    views: 318,
-    rewards: 600,
-    featured: false,
-  },
-  {
-    id: "17",
-    image: "/images/home-card-language.jpg",
-    title: "City Walk: Hidden Temples",
-    eventDate: "2025-01-14T14:00:00",
-    uploadDate: "2025-01-08T17:00:00",
-    district: "Sham Shui Po",
-    people: 7,
-    views: 143,
-    rewards: 250,
-    featured: false,
-  },
-  /* ── Others / e-Sports ── */
-  {
-    id: "18",
-    image: "/planet-heart.svg",
-    title: "Stargazing Night at Sai Kung",
-    eventDate: "2025-01-17T20:00:00",
-    uploadDate: "2025-01-09T22:00:00",
-    district: "Sai Kung",
-    people: 10,
-    views: 687,
-    rewards: 150,
-    featured: false,
-  },
-];
-
 /* ─── Helpers ─── */
 
-type SortMode = "upcoming" | "nearby" | "views";
+type SortMode = "upcoming" | "nearby" | "points";
 
 export function formatEventDate(iso: string): string {
   const d = new Date(iso);
@@ -288,8 +65,8 @@ function sortActivities(
         (a, b) =>
           new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime(),
       );
-    case "views":
-      return copy.sort((a, b) => b.views - a.views);
+    case "points":
+      return copy.sort((a, b) => (b.rewards ?? 0) - (a.rewards ?? 0));
     case "nearby":
       if (selectedRegion === "All Region") {
         return copy.sort((a, b) => a.district.localeCompare(b.district));
@@ -322,11 +99,7 @@ function FeaturedDetails({ a }: { a: Activity }) {
         <span style={{ color: "var(--color-accent-pink)", fontWeight: 500 }}>
           +{a.rewards}pts
         </span>
-      ) : (
-        <span style={{ opacity: 0.6 }}>
-          {a.views.toLocaleString()} views
-        </span>
-      )}
+      ) : null}
     </>
   );
 }
@@ -342,16 +115,14 @@ function GridDetails({ a }: { a: Activity }) {
           alt=""
           style={{ width: "14px", height: "7px", opacity: 0.7 }}
         />
-        <span style={{ opacity: 0.4 }}>&middot;</span>
         {a.rewards ? (
-          <span style={{ color: "var(--color-accent-pink)", fontWeight: 500 }}>
-            +{a.rewards}pts
-          </span>
-        ) : (
-          <span style={{ opacity: 0.6 }}>
-            {a.views.toLocaleString()} views
-          </span>
-        )}
+          <>
+            <span style={{ opacity: 0.4 }}>&middot;</span>
+            <span style={{ color: "var(--color-accent-pink)", fontWeight: 500 }}>
+              +{a.rewards}pts
+            </span>
+          </>
+        ) : null}
       </div>
     </>
   );
@@ -418,6 +189,7 @@ function SkeletonCard({ index }: { index: number }) {
 /* ─── Page ─── */
 
 function HomePage() {
+  const activities = Route.useLoaderData();
   const [searchOpen, setSearchOpen] = useState(false);
   const [regionSheetOpen, setRegionSheetOpen] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState("All Region");
@@ -437,7 +209,7 @@ function HomePage() {
         ? activities
         : activities.filter((a) => a.district === selectedRegion);
     return sortActivities(filtered, activeSort, selectedRegion);
-  }, [activeSort, selectedRegion]);
+  }, [activities, activeSort, selectedRegion]);
 
   // Show 2s loading skeleton when sort or region changes (not on initial mount)
   useEffect(() => {
@@ -514,9 +286,9 @@ function HomePage() {
             onClick={() => setActiveSort("nearby")}
           />
           <FilterChip
-            label="Views"
-            active={activeSort === "views"}
-            onClick={() => setActiveSort("views")}
+            label="Points"
+            active={activeSort === "points"}
+            onClick={() => setActiveSort("points")}
           />
         </div>
 

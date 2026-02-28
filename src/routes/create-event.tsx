@@ -225,8 +225,33 @@ function CreateEventPage() {
     }
   };
 
-  const handlePublish = () => {
-    navigate({ to: "/home" });
+  const [publishing, setPublishing] = useState(false);
+
+  const handlePublish = async () => {
+    setPublishing(true);
+    try {
+      const { createEvent } = await import("@/lib/events");
+      await createEvent({
+        title,
+        category: selectedCategory ?? "",
+        subcategory: selectedSubcategory ?? "",
+        gender,
+        ageFrom: ageMode === "range" ? parseInt(ageFrom) || null : null,
+        ageTo: ageMode === "range" ? parseInt(ageTo) || null : null,
+        eventDate: `${eventDate || new Date().toISOString().slice(0, 10)}T${timeFrom || "00:00"}:00`,
+        timeFrom,
+        timeTo,
+        location,
+        maxPeople: parseInt(maxPeople) || 2,
+        description,
+      });
+      navigate({ to: "/home" });
+    } catch (err) {
+      console.error("Failed to create event:", err);
+      alert("Failed to publish event. Please try again.");
+    } finally {
+      setPublishing(false);
+    }
   };
 
   /* ─── Style helpers ─── */
@@ -666,6 +691,7 @@ function CreateEventPage() {
             <div className="flex justify-center" style={{ marginTop: "16px", marginBottom: "24px" }}>
               <button
                 onClick={handlePublish}
+                disabled={publishing}
                 className="cursor-pointer"
                 style={{
                   width: "109px",
@@ -678,6 +704,7 @@ function CreateEventPage() {
                   fontStyle: "italic",
                   fontWeight: 500,
                   border: "none",
+                  opacity: publishing ? 0.6 : 1,
                   transition: "transform 250ms cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
                 onPointerDown={(e) => {
@@ -690,7 +717,7 @@ function CreateEventPage() {
                   e.currentTarget.style.transform = "";
                 }}
               >
-                Publish Event
+                {publishing ? "Publishing..." : "Publish Event"}
               </button>
             </div>
           </div>
