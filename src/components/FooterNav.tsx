@@ -11,7 +11,7 @@ const navItems: NavItem[] = [
   { name: "notification", to: "/notifications", width: 23, height: 25 },
   { name: "personal", width: 30, height: 30 },
   { name: "home", to: "/home", width: 21, height: 25 },
-  { name: "community", width: 30, height: 25 },
+  { name: "community", to: "/my", width: 30, height: 25 },
   { name: "settings", to: "/settings", width: 25, height: 25 },
 ];
 

@@ -1,9 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { ArrowLeft, X, Search, Clock, TrendingUp } from "lucide-react";
+import { ActivityCard } from "@/components/ActivityCard";
+import type { Activity } from "@/routes/home";
+import { formatEventDate } from "@/routes/home";
 
 interface SearchOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  activities: Activity[];
 }
 
 const recentSearchesData = [
@@ -22,10 +26,20 @@ const popularTags = [
   { label: "Climbing", emoji: "\u{1FA78}" },
 ];
 
-export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
+export function SearchOverlay({ isOpen, onClose, activities }: SearchOverlayProps) {
   const [query, setQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState(recentSearchesData);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const results = useMemo(() => {
+    if (!query.trim()) return [];
+    const q = query.toLowerCase();
+    return activities.filter(
+      (a) =>
+        a.title.toLowerCase().includes(q) ||
+        a.district.toLowerCase().includes(q),
+    );
+  }, [query, activities]);
 
   useEffect(() => {
     if (isOpen) {
@@ -164,39 +178,85 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
         style={{ padding: "28px 20px" }}
       >
         {query ? (
-          /* Empty results state */
-          <div
-            className="flex flex-col items-center"
-            style={{
-              paddingTop: "80px",
-              animation: "fadeIn 300ms ease-out",
-            }}
-          >
+          results.length > 0 ? (
+            /* Search results grid */
             <div
               style={{
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                background: "rgba(174, 177, 231, 0.08)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: "16px",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "10px",
+                animation: "fadeIn 300ms ease-out",
               }}
             >
-              <Search size={20} color="var(--color-text-primary)" style={{ opacity: 0.4 }} />
+              {results.map((a, i) => (
+                <div
+                  key={a.id}
+                  style={{
+                    animation: "searchSlideIn 350ms ease-out",
+                    animationDelay: `${i * 50}ms`,
+                    animationFillMode: "backwards",
+                  }}
+                >
+                  <ActivityCard
+                    image={a.image}
+                    title={a.title}
+                    height="155px"
+                    details={
+                      <>
+                        <span>{formatEventDate(a.eventDate)}</span>
+                        <div className="flex items-center" style={{ gap: "3px" }}>
+                          <span>{a.people}</span>
+                          <img
+                            src="/icons/home-people.svg"
+                            alt=""
+                            style={{ width: "14px", height: "7px", opacity: 0.7 }}
+                          />
+                          <span style={{ opacity: 0.4 }}>&middot;</span>
+                          <span style={{ opacity: 0.6 }}>
+                            {a.district}
+                          </span>
+                        </div>
+                      </>
+                    }
+                  />
+                </div>
+              ))}
             </div>
-            <span
+          ) : (
+            /* Empty results state */
+            <div
+              className="flex flex-col items-center"
               style={{
-                color: "var(--color-text-primary)",
-                fontFamily: "var(--font-heading)",
-                fontSize: "14px",
-                opacity: 0.5,
+                paddingTop: "80px",
+                animation: "fadeIn 300ms ease-out",
               }}
             >
-              No results for "{query}"
-            </span>
-          </div>
+              <div
+                style={{
+                  width: "48px",
+                  height: "48px",
+                  borderRadius: "50%",
+                  background: "rgba(174, 177, 231, 0.08)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "16px",
+                }}
+              >
+                <Search size={20} color="var(--color-text-primary)" style={{ opacity: 0.4 }} />
+              </div>
+              <span
+                style={{
+                  color: "var(--color-text-primary)",
+                  fontFamily: "var(--font-heading)",
+                  fontSize: "14px",
+                  opacity: 0.5,
+                }}
+              >
+                No results for "{query}"
+              </span>
+            </div>
+          )
         ) : (
           <>
             {/* Recent Searches */}

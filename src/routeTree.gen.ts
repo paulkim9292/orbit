@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as MyRouteImport } from './routes/my'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as CreateEventRouteImport } from './routes/create-event'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SettingsRoute = SettingsRouteImport.update({
@@ -30,9 +32,19 @@ const NotificationsRoute = NotificationsRouteImport.update({
   path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MyRoute = MyRouteImport.update({
+  id: '/my',
+  path: '/my',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateEventRoute = CreateEventRouteImport.update({
+  id: '/create-event',
+  path: '/create-event',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,14 +55,18 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/create-event': typeof CreateEventRoute
   '/home': typeof HomeRoute
+  '/my': typeof MyRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create-event': typeof CreateEventRoute
   '/home': typeof HomeRoute
+  '/my': typeof MyRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/settings': typeof SettingsRoute
@@ -58,20 +74,38 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/create-event': typeof CreateEventRoute
   '/home': typeof HomeRoute
+  '/my': typeof MyRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/notifications' | '/onboarding' | '/settings'
+  fullPaths:
+    | '/'
+    | '/create-event'
+    | '/home'
+    | '/my'
+    | '/notifications'
+    | '/onboarding'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/notifications' | '/onboarding' | '/settings'
+  to:
+    | '/'
+    | '/create-event'
+    | '/home'
+    | '/my'
+    | '/notifications'
+    | '/onboarding'
+    | '/settings'
   id:
     | '__root__'
     | '/'
+    | '/create-event'
     | '/home'
+    | '/my'
     | '/notifications'
     | '/onboarding'
     | '/settings'
@@ -79,7 +113,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CreateEventRoute: typeof CreateEventRoute
   HomeRoute: typeof HomeRoute
+  MyRoute: typeof MyRoute
   NotificationsRoute: typeof NotificationsRoute
   OnboardingRoute: typeof OnboardingRoute
   SettingsRoute: typeof SettingsRoute
@@ -108,11 +144,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/my': {
+      id: '/my'
+      path: '/my'
+      fullPath: '/my'
+      preLoaderRoute: typeof MyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home': {
       id: '/home'
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create-event': {
+      id: '/create-event'
+      path: '/create-event'
+      fullPath: '/create-event'
+      preLoaderRoute: typeof CreateEventRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -127,7 +177,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreateEventRoute: CreateEventRoute,
   HomeRoute: HomeRoute,
+  MyRoute: MyRoute,
   NotificationsRoute: NotificationsRoute,
   OnboardingRoute: OnboardingRoute,
   SettingsRoute: SettingsRoute,
