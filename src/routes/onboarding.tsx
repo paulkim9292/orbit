@@ -251,7 +251,7 @@ function OnboardingPage() {
     const { label, image } = SOCIAL_LEVEL_CONFIG[level];
 
     return (
-      <div className="relative min-h-screen overflow-hidden">
+      <div className="relative min-h-dvh overflow-hidden">
         {/* Gradient Background Header */}
         <div className="absolute top-0 left-0 w-full" style={{ height: "290px" }}>
           <img src="/gradient-background.svg" alt="" className="w-full h-full object-cover" />
@@ -273,7 +273,7 @@ function OnboardingPage() {
         {/* Content */}
         <div
           className="relative z-10 flex flex-col items-center px-[42px] pb-8"
-          style={{ minHeight: "100vh" }}
+          style={{ minHeight: "100dvh" }}
         >
           {/* Planet Illustration */}
           <div className="flex justify-center" style={{ marginTop: "58px" }}>
@@ -359,7 +359,7 @@ function OnboardingPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-dvh overflow-hidden">
       {/* Gradient Background Header */}
       <div className="absolute top-0 left-0 w-full" style={{ height: "290px" }}>
         <img src="/gradient-background.svg" alt="" className="w-full h-full object-cover" />
@@ -379,7 +379,7 @@ function OnboardingPage() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col px-[42px]" style={{ minHeight: "100vh" }}>
+      <div className="relative z-10 flex flex-col px-[42px]" style={{ minHeight: "100dvh" }}>
         {/* Planet Illustration */}
         <div className="flex justify-center" style={{ marginTop: "58px" }}>
           <img
