@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ReportRouteImport } from './routes/report'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MyRouteImport } from './routes/my'
@@ -23,6 +24,11 @@ import { Route as ChatEventIdRouteImport } from './routes/chat.$eventId'
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/my': typeof MyRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
+  '/report': typeof ReportRoute
   '/settings': typeof SettingsRoute
   '/chat/$eventId': typeof ChatEventIdRoute
   '/event/$eventId': typeof EventEventIdRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/my': typeof MyRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
+  '/report': typeof ReportRoute
   '/settings': typeof SettingsRoute
   '/chat/$eventId': typeof ChatEventIdRoute
   '/event/$eventId': typeof EventEventIdRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/my': typeof MyRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
+  '/report': typeof ReportRoute
   '/settings': typeof SettingsRoute
   '/chat/$eventId': typeof ChatEventIdRoute
   '/event/$eventId': typeof EventEventIdRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/my'
     | '/notifications'
     | '/onboarding'
+    | '/report'
     | '/settings'
     | '/chat/$eventId'
     | '/event/$eventId'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/my'
     | '/notifications'
     | '/onboarding'
+    | '/report'
     | '/settings'
     | '/chat/$eventId'
     | '/event/$eventId'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/my'
     | '/notifications'
     | '/onboarding'
+    | '/report'
     | '/settings'
     | '/chat/$eventId'
     | '/event/$eventId'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   MyRoute: typeof MyRoute
   NotificationsRoute: typeof NotificationsRoute
   OnboardingRoute: typeof OnboardingRoute
+  ReportRoute: typeof ReportRoute
   SettingsRoute: typeof SettingsRoute
   ChatEventIdRoute: typeof ChatEventIdRoute
   EventEventIdRoute: typeof EventEventIdRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyRoute: MyRoute,
   NotificationsRoute: NotificationsRoute,
   OnboardingRoute: OnboardingRoute,
+  ReportRoute: ReportRoute,
   SettingsRoute: SettingsRoute,
   ChatEventIdRoute: ChatEventIdRoute,
   EventEventIdRoute: EventEventIdRoute,
