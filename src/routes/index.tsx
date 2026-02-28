@@ -78,11 +78,8 @@ function LandingPage() {
           Your space to connect
         </p>
 
-        {/* Spacer */}
-        <div style={{ flexGrow: 1 }} />
-
         {/* CTA Buttons */}
-        <div className="flex flex-col items-center" style={{ gap: "14px", marginBottom: "140px" }}>
+        <div className="flex flex-col items-center" style={{ gap: "14px", marginTop: "60px", marginBottom: "140px" }}>
           <Link
             to="/onboarding"
             className="animate-stagger-4 flex items-center justify-center rounded-full"
