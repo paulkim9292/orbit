@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { ShimmerImage } from "./ShimmerImage";
 
 interface ActivityCardProps {
   image: string;
@@ -26,6 +27,7 @@ export function ActivityCard({
         borderRadius: "12px",
         border: "1px solid rgba(174, 177, 231, 0.1)",
         boxShadow: "0 2px 16px rgba(0, 0, 0, 0.25)",
+        backgroundColor: "var(--color-card-bg)",
         cursor: "pointer",
         transition:
           "transform 350ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 350ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -49,8 +51,8 @@ export function ActivityCard({
         el.style.boxShadow = "";
       }}
     >
-      {/* Image — fills entire card */}
-      <img
+      {/* Image — fills entire card, with shimmer while loading */}
+      <ShimmerImage
         src={image}
         alt={title}
         className="absolute inset-0 w-full h-full"

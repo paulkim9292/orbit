@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ShimmerImage } from "@/components/ShimmerImage";
 
 export const Route = createFileRoute("/notifications")({
   component: NotificationsPage,
@@ -45,8 +46,8 @@ function NotificationsPage() {
           className="flex flex-col"
           style={{ marginTop: "70px", padding: "0 21px", gap: "8px" }}
         >
-          <img src="/icons/notification-1.svg" alt="Someone has joined the event you hosted!" className="w-full" />
-          <img src="/icons/notification-1.svg" alt="Someone has joined the event you hosted!" className="w-full" />
+          <ShimmerImage src="/icons/notification-1.svg" alt="Someone has joined the event you hosted!" className="w-full" />
+          <ShimmerImage src="/icons/notification-1.svg" alt="Someone has joined the event you hosted!" className="w-full" />
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { QuestionHeader } from "@/components/QuestionHeader";
 import { OptionButton } from "@/components/OptionButton";
 import { GridButton } from "@/components/GridButton";
+import { ShimmerImage } from "@/components/ShimmerImage";
 
 export const Route = createFileRoute("/onboarding")({
   component: OnboardingPage,
@@ -301,7 +302,7 @@ function OnboardingPage() {
 
             {/* Level Illustration */}
             <div className="flex justify-center animate-stagger-2" style={{ marginTop: "24px" }}>
-              <img
+              <ShimmerImage
                 src={image}
                 alt={label}
                 style={{ width: "200px", height: "200px", objectFit: "contain" }}

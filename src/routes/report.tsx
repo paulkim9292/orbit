@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ActivityCard } from "@/components/ActivityCard";
 import { FadeIn } from "@/components/FadeIn";
 import { MonthPickerSheet } from "@/components/MonthPickerSheet";
+import { ShimmerImage } from "@/components/ShimmerImage";
 import { SocialLevelSheet } from "@/components/SocialLevelSheet";
 import { fetchActivities } from "@/lib/events";
 import { formatEventDate } from "@/routes/home";
@@ -171,7 +172,7 @@ function ReportPage() {
           </span>
 
           {/* Level illustration */}
-          <img
+          <ShimmerImage
             src={USER_LEVEL.image}
             alt={USER_LEVEL.label}
             style={{ width: "160px", height: "160px", objectFit: "contain", marginTop: "8px" }}
@@ -464,7 +465,7 @@ function ReportPage() {
           </h3>
 
           {/* Mood chart image */}
-          <img
+          <ShimmerImage
             src="/images/report-mood-chart.png"
             alt="Mood tracker chart"
             style={{
@@ -492,7 +493,7 @@ function ReportPage() {
           </p>
 
           {/* Energy bar image */}
-          <img
+          <ShimmerImage
             src="/images/report-energy-bar.png"
             alt="Energy progress bar"
             style={{
@@ -623,7 +624,7 @@ function ReportPage() {
           >
             {report.topMoods.map((mood, i) => (
               <div key={i} className="flex flex-col items-center" style={{ gap: "8px" }}>
-                <img
+                <ShimmerImage
                   src={mood.image}
                   alt={mood.label}
                   style={{
@@ -747,7 +748,7 @@ function ReportPage() {
           </h3>
 
           {/* Activity breakdown image (donut chart + percentages) */}
-          <img
+          <ShimmerImage
             src="/images/report-activity-breakdown.png"
             alt="Emotion and activity breakdown chart"
             style={{

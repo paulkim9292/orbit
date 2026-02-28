@@ -1,3 +1,5 @@
+import { ShimmerImage } from "./ShimmerImage";
+
 export function HeroBanner() {
   return (
     <div
@@ -9,7 +11,7 @@ export function HeroBanner() {
         overflow: "hidden",
       }}
     >
-      <img
+      <ShimmerImage
         src="/images/home-ad.svg"
         alt="Promotion"
         className="w-full h-full"

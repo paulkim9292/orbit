@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { ShimmerImage } from "@/components/ShimmerImage";
 
 export const Route = createFileRoute("/review/$eventId")({
   component: ReviewPage,
@@ -154,7 +155,7 @@ function ReviewPage() {
                     e.currentTarget.style.transform = "";
                   }}
                 >
-                  <img
+                  <ShimmerImage
                     src={selectedMood === mood.id ? mood.imageSelected : mood.image}
                     alt={mood.label}
                     style={{

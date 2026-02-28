@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { fetchEventById, type EventDetail } from "@/lib/events";
+import { ShimmerImage } from "@/components/ShimmerImage";
 import { formatEventDate } from "./home";
 
 export const Route = createFileRoute("/event/$eventId")({
@@ -412,7 +413,7 @@ function EventDetailPage() {
           animation: "fadeIn 500ms cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
-        <img
+        <ShimmerImage
           src={event.image}
           alt={event.title}
           className="absolute inset-0 w-full h-full"
