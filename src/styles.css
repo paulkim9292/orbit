@@ -227,6 +227,33 @@
   animation: scrollFadeUp 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* ─── View Transitions (page navigation crossfade) ─── */
+::view-transition-old(root) {
+  animation: 150ms cubic-bezier(0.16, 1, 0.3, 1) both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 250ms cubic-bezier(0.16, 1, 0.3, 1) both vt-fade-slide-in;
+}
+
+@keyframes vt-fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes vt-fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ─── Pending navigation progress bar ─── */
+@keyframes pending-progress {
+  0% { transform: scaleX(0); opacity: 0.6; }
+  50% { transform: scaleX(0.7); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
 /* Hide scrollbar utility */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

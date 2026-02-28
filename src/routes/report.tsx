@@ -110,7 +110,7 @@ function ReportPage() {
     : [...activities].reverse().slice(0, 4);
 
   return (
-    <div className="relative flex flex-col" style={{ paddingBottom: "24px", overflow: "hidden" }}>
+    <div className="relative flex flex-col animate-page-enter" style={{ paddingBottom: "24px", overflow: "hidden" }}>
       {/* ─── Gradient Background Header (same as onboarding) ─── */}
       <div
         className="absolute top-0 left-0 w-full"
@@ -135,7 +135,7 @@ function ReportPage() {
 
       {/* ─── Logo + Title ─── */}
       <div
-        className="relative z-10 flex flex-col items-center animate-page-enter"
+        className="relative z-10 flex flex-col items-center"
         style={{ paddingTop: "58px", gap: "38px" }}
       >
         <img src="/planet-heart.svg" alt="Orbit" style={{ width: "150px", height: "88px" }} />

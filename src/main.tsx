@@ -8,6 +8,21 @@ import { routeTree } from './routeTree.gen'
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
 
+function GlobalPending() {
+  return (
+    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 50 }}>
+      <div
+        style={{
+          height: '2px',
+          background: 'var(--color-text-primary)',
+          animation: 'pending-progress 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite',
+          transformOrigin: 'left',
+        }}
+      />
+    </div>
+  )
+}
+
 // Create a new router instance
 const router = createRouter({
   routeTree,
@@ -15,7 +30,11 @@ const router = createRouter({
   defaultPreload: 'intent',
   scrollRestoration: true,
   defaultStructuralSharing: true,
-  defaultPreloadStaleTime: 0,
+  defaultPreloadStaleTime: 30_000,
+  defaultViewTransition: true,
+  defaultPendingMs: 150,
+  defaultPendingMinMs: 300,
+  defaultPendingComponent: GlobalPending,
 })
 
 // Register the router instance for type safety

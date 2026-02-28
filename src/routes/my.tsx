@@ -102,12 +102,11 @@ function MyPage() {
 
   return (
     <div
-      className="relative flex flex-col"
+      className="relative flex flex-col animate-page-enter"
       style={{ paddingBottom: "24px" }}
     >
       {/* Header */}
       <div
-        className="animate-page-enter"
         style={{ padding: "48px 20px 0" }}
       >
         <h1
@@ -143,9 +142,6 @@ function MyPage() {
           borderRadius: "10px",
           backgroundColor: "rgba(59, 60, 97, 0.5)",
           padding: "3px",
-          animation: "pageEnter 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-          animationDelay: "80ms",
-          animationFillMode: "backwards",
         }}
       >
         {(["upcoming", "past"] as Tab[]).map((tab) => (
@@ -193,9 +189,6 @@ function MyPage() {
       <section
         style={{
           padding: "16px 20px 0",
-          animation: "pageEnter 450ms cubic-bezier(0.16, 1, 0.3, 1)",
-          animationDelay: "150ms",
-          animationFillMode: "backwards",
         }}
       >
         {events.length === 0 ? (
@@ -211,23 +204,15 @@ function MyPage() {
             className="flex flex-col"
             style={{ gap: "12px" }}
           >
-            {events.map((event, index) => (
-              <div
+            {events.map((event) => (
+              <ActivityCard
                 key={event.id}
-                style={{
-                  animation: "pageEnter 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-                  animationDelay: `${index * 60}ms`,
-                  animationFillMode: "backwards",
-                }}
-              >
-                <ActivityCard
-                  eventId={event.id}
-                  image={event.image}
-                  title={event.title}
-                  height="140px"
-                  details={<EventDetails a={event} />}
-                />
-              </div>
+                eventId={event.id}
+                image={event.image}
+                title={event.title}
+                height="140px"
+                details={<EventDetails a={event} />}
+              />
             ))}
           </div>
         )}

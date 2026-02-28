@@ -224,9 +224,9 @@ function HomePage() {
   }, [activeSort, selectedRegion]);
 
   return (
-    <div className="relative flex flex-col" style={{ paddingBottom: "24px" }}>
+    <div className="relative flex flex-col animate-page-enter" style={{ paddingBottom: "24px" }}>
       {/* Hero Banner */}
-      <div className="animate-page-enter" style={{ paddingTop: "20px" }}>
+      <div style={{ paddingTop: "20px" }}>
         <HeroBanner />
       </div>
 
@@ -236,9 +236,6 @@ function HomePage() {
         style={{
           padding: "16px 20px",
           gap: "8px",
-          animation: "pageEnter 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-          animationDelay: "80ms",
-          animationFillMode: "backwards",
         }}
       >
         {/* Search icon button */}
@@ -308,9 +305,6 @@ function HomePage() {
       <section
         style={{
           padding: "0 20px",
-          animation: "pageEnter 450ms cubic-bezier(0.16, 1, 0.3, 1)",
-          animationDelay: "150ms",
-          animationFillMode: "backwards",
         }}
       >
         <h2
@@ -346,9 +340,6 @@ function HomePage() {
       <section
         style={{
           padding: "16px 20px 0",
-          animation: "pageEnter 450ms cubic-bezier(0.16, 1, 0.3, 1)",
-          animationDelay: "250ms",
-          animationFillMode: "backwards",
         }}
       >
         <h2
