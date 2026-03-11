@@ -133,35 +133,6 @@ const subcategories: Record<string, SubcategorySection[]> = {
       ],
     },
   ],
-  Others: [
-    {
-      title: "Social Networking",
-      items: [
-        "Café & Casual Hangouts",
-        "Board Games & Card Games",
-        "Dining & Drinks Gatherings",
-        "City Walks & Local Exploration",
-      ],
-    },
-    {
-      title: "Volunteering & Social Contribution",
-      items: [
-        "Environmental Clean-up & Plogging",
-        "Community Service & Elderly Support",
-        "Mentorship & Talent-sharing Volunteering",
-        "Social Impact Projects & Campaigns",
-      ],
-    },
-    {
-      title: "e-Sports & Gaming",
-      items: [
-        "Online Multiplayer Games",
-        "Offline PC Café / Arcade Meetups",
-        "Casual Team-based Gaming Sessions",
-        "Competitive Gaming & Tournaments",
-      ],
-    },
-  ],
 };
 
 /* ─── Page ─── */
@@ -205,12 +176,22 @@ function CreateEventPage() {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setSelectedSubcategory(null);
-    setTimeout(() => setStep(1), 300);
+    if (category === "Others") {
+      setSelectedSubcategory("Others");
+      setTimeout(() => setStep(2), 300);
+    } else {
+      setTimeout(() => setStep(1), 300);
+    }
   };
 
   const handleBack = () => {
     if (step === 2) {
-      setStep(1);
+      if (selectedCategory === "Others") {
+        setStep(0);
+        setSelectedSubcategory(null);
+      } else {
+        setStep(1);
+      }
     } else if (step === 1) {
       setStep(0);
       setSelectedSubcategory(null);
